@@ -1,5 +1,5 @@
-import { setTimeout as delay } from "node:timers/promises";
-import { jsonFetch, mapLimit, TTLCache, UpstreamError } from "../http";
+import { checkSearchBudget, searchDelay, waitForSearch, inflightKey } from "../search-context.js";
+import { jsonFetch, mapLimit, TTLCache, UpstreamError } from "../http.js";
 import {
   amount,
   evidence,
@@ -8,9 +8,9 @@ import {
   timestamp,
   type AdapterInput,
   type AdapterResult,
-} from "./common";
-import type { BridgeRoute } from "../../shared/types";
-import { timeWindow } from "../time-window";
+} from "./common.js";
+import type { BridgeRoute } from "../../shared/types.js";
+import { timeWindow } from "../time-window.js";
 const base = "https://dln-api.debridge.finance";
 // Both endpoint addresses often lead to the same orders. Share detail requests
 // and pace the public API across all searches, not just within one adapter call.
@@ -21,8 +21,9 @@ let nextRequestAt = 0;
 let cooldownUntil = 0;
 function dlnFetch(url: string, options: RequestInit = {}) {
   const request = requestQueue.then(async () => {
+    checkSearchBudget();
     if (Date.now() < cooldownUntil) throw new UpstreamError(429, "deBridge 요청 제한 · 잠시 후 다시 조회하세요.");
-    await delay(Math.max(0, nextRequestAt - Date.now()));
+    await searchDelay(Math.max(0, nextRequestAt - Date.now()));
     try {
       return await jsonFetch(url, options);
     } catch (error) {
@@ -33,19 +34,20 @@ function dlnFetch(url: string, options: RequestInit = {}) {
     }
   });
   requestQueue = request.catch(() => undefined);
-  return request;
+  return waitForSearch(request);
 }
 function orderDetails(id: string) {
   const cached = orderCache.get(id);
   if (cached) return Promise.resolve(cached);
-  const existing = orderInflight.get(id);
+  const pendingKey = inflightKey(id);
+  const existing = orderInflight.get(pendingKey);
   if (existing) return existing;
   const request = dlnFetch(`${base}/api/Orders/${encodeURIComponent(id)}`).then(row => {
     const value = { row, fetchedAt: new Date().toISOString() };
     orderCache.set(id, value, ["Fulfilled", "SentUnlock", "ClaimedUnlock"].includes(row.state) ? 300_000 : 15_000);
     return value;
-  }).finally(() => orderInflight.delete(id));
-  orderInflight.set(id, request);
+  }).finally(() => orderInflight.delete(pendingKey));
+  orderInflight.set(pendingKey, request);
   return request;
 }
 const val = (v: any) =>

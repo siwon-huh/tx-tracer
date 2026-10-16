@@ -1,5 +1,5 @@
-import { setTimeout as delay } from "node:timers/promises";
-import { errorText, jsonFetch, TTLCache } from "./http";
+import { checkSearchBudget, searchExpired, searchDelay, waitForSearch, inflightKey } from "./search-context.js";
+import { errorText, jsonFetch, TTLCache } from "./http.js";
 
 const genesis = "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d";
 const endpoints = ["https://solana-rpc.publicnode.com", "https://api.mainnet-beta.solana.com"];
@@ -19,17 +19,20 @@ async function send(url: string, method: string, params: unknown[]) {
 }
 
 export function solanaRpc(method: string, params: unknown[]) {
+  checkSearchBudget();
   const key = JSON.stringify([method, params]);
   const cached = cache.get(key);
   if (cached) return Promise.resolve(cached);
-  const pending = inflight.get(key);
+  const pendingKey = inflightKey(key);
+  const pending = inflight.get(pendingKey);
   if (pending) return pending;
   const task = queue.then(async () => {
+    checkSearchBudget();
     const errors: string[] = [];
     for (const endpoint of endpoints) {
       if ((cooldown.get(endpoint) || 0) > Date.now()) continue;
       try {
-        await delay(Math.max(0, nextAt - Date.now()));
+        await searchDelay(Math.max(0, nextAt - Date.now()));
         if (!verified.has(endpoint)) {
           if (await send(endpoint, "getGenesisHash", []) !== genesis) throw new Error("Solana mainnet 체인 불일치");
           verified.add(endpoint);
@@ -41,13 +44,14 @@ export function solanaRpc(method: string, params: unknown[]) {
         cache.set(key, value, method === "getTransaction" ? 300_000 : 30_000);
         return value;
       } catch (error) {
+        if (searchExpired()) throw error;
         cooldown.set(endpoint, Date.now() + 30_000);
         errors.push(`${new URL(endpoint).host}: ${errorText(error)}`);
       }
     }
     throw new Error(errors.join(" / ") || "Solana 공개 RPC가 모두 cooldown 중입니다.");
-  }).finally(() => inflight.delete(key));
+  }).finally(() => inflight.delete(pendingKey));
   queue = task.catch(() => undefined);
-  inflight.set(key, task);
-  return task;
+  inflight.set(pendingKey, task);
+  return waitForSearch(task);
 }

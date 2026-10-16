@@ -1,10 +1,10 @@
 # Tx Tracer
 
-트랜잭션 해시 또는 주소를 입력하면 브릿지의 출발·도착 거래와 그 연결 근거를 보여주는 로컬 웹앱입니다. React + TypeScript + React Flow 프런트엔드와 Node/Express 조회 서버로 구성했습니다. 지갑 연결, 서명, 송금 기능은 없습니다.
+트랜잭션 해시 또는 주소를 입력하면 브릿지의 출발·도착 거래와 그 연결 근거를 보여주는 웹앱입니다. React + TypeScript + React Flow 프런트엔드와 Node/Express 조회 서버로 구성했습니다. 지갑 연결, 서명, 송금 기능은 없습니다.
 
 ## 실행
 
-Node.js 22.13 이상이 필요합니다.
+Node.js 22.x가 필요합니다.
 
 ```sh
 npm ci --cache .cache/npm
@@ -21,6 +21,26 @@ npm start
 ```
 
 빌드 후 실행 역시 기본적으로 로컬 인터페이스 `127.0.0.1`에서만 수신합니다. `HOST`, `PORT`는 `.env`에서 변경할 수 있습니다. 현재 앱에는 사용자 인증이 없으며 공개 호스팅 배포는 하지 않았습니다.
+
+## Vercel 배포
+
+GitHub의 `siwon-huh/tx-tracer`를 Import하고 Root Directory는 저장소 루트로 둡니다. `vercel.json`에 Framework `Vite`, 설치 `npm ci`, 빌드 `npm run build`, Output Directory `dist`, Fluid Compute와 API 최대 실행 시간 300초가 설정되어 있습니다. Node.js는 `package.json`의 `22.x`를 사용합니다.
+
+화면과 로고는 정적 파일로 제공하고 `/api/*`는 `api/index.ts`의 단일 Node.js Function으로 연결합니다. `server/app.ts`는 포트나 Vite를 시작하지 않는 공용 API이고, `server/index.ts`만 로컬 서버를 시작합니다. Vercel에서는 `npm start`, `HOST`, `PORT`를 설정하지 않습니다.
+
+API 키가 있으면 프로젝트 Settings의 Environment Variables에 `LIFI_API_KEY`, `ETHERSCAN_API_KEY`, `RHINO_API_KEY`를 필요한 환경(Production / Preview)에 추가하고 다시 배포합니다. 키가 없으면 기존 공개 API 범위에서 동작하며 rhino.fi 인증 조회는 제외됩니다. 키를 `VITE_*` 변수에 넣지 않습니다.
+
+조회는 240초의 공통 시간 예산을 사용합니다. 실행 중인 HTTP 요청과 대기열에도 취소를 전달하고, 완료한 경로는 유지하면서 미완료 조회를 표시합니다. 브라우저에서 취소하거나 연결을 끊으면 해당 검색의 요청도 중단합니다. 제한 시간에 도달한 결과는 일반 결과 캐시에 저장하지 않습니다. 검색 범위의 기존 단계, 페이지, 90초 경로 탐색 한도도 유지됩니다.
+
+체인 메타데이터는 저장소의 JSON 스냅샷으로 즉시 시작하며 `/api/config`의 갱신 작업은 Vercel `waitUntil()`에 등록합니다. 메모리 캐시, 공개 RPC 상태 및 동시 조회 3개 제한은 인스턴스별입니다. 실제 방문자 IP는 Vercel의 IP 헬퍼로 읽으며 로컬 실행에서는 클라이언트가 보낸 프록시 헤더를 신뢰하지 않습니다.
+
+별도 데이터베이스 없이도 배포할 수 있습니다. 모든 인스턴스에 IP당 60초간 15회 제한을 공유하려면 Upstash Redis의 `UPSTASH_REDIS_REST_URL`과 `UPSTASH_REDIS_REST_TOKEN`을 함께 등록합니다. 둘 다 없으면 인스턴스별 제한을 사용합니다. 공유 저장소를 설정했는데 접속에 실패하면 일시적인 503 응답을 반환합니다. Redis 카운터에는 IP의 SHA-256 해시를 사용하고 60초 후 만료합니다. 검색 결과와 지갑 주소를 저장하지 않습니다. 동시 조회 3개 제한은 Redis 사용 여부와 관계없이 인스턴스별로 적용됩니다.
+
+배포 후 `/api/health`가 JSON으로 `status: ok`를 반환하는지 확인하고, 예시 해시와 다중 해시, 주소 간 검색을 각각 실행합니다. 외부 RPC와 인덱서의 접근 제한은 배포 지역 및 제공자에 따라 달라질 수 있습니다. Vercel Functions의 응답 크기 상한은 4.5MB이므로 매우 큰 검색 결과는 조회 기간을 좁혀야 할 수 있습니다.
+
+Vercel CLI로 프로젝트를 연결한 환경에서는 `vercel build --standalone` 후 Node.js 22에서 `npm run check:vercel`로 실제 함수 산출물의 import, API 응답, 체인 스냅샷, 로고와 연락처 주석을 확인할 수 있습니다. 다른 출력 경로는 `npm run check:vercel -- /절대/경로/.vercel/output`으로 지정합니다. 이 검사는 배포를 생성하지 않습니다.
+
+공식 문서: [Vite](https://vercel.com/docs/frameworks/frontend/vite), [Node.js Functions](https://vercel.com/docs/functions/runtimes/node-js), [실행 제한](https://vercel.com/docs/functions/limitations), [waitUntil](https://vercel.com/docs/functions/functions-api-reference/vercel-functions-package#waituntil), [Upstash REST](https://upstash.com/docs/redis/features/restapi).
 
 ## 구현된 기능
 
@@ -99,7 +119,7 @@ Solana RPC는 PublicNode와 Solana 공식 엔드포인트를 사용하며 순차
 
 실거래 검증 fixture: `tests/fixtures/arbitrum-solana-forward.json`. Arbitrum의 deBridge 출발 → Solana 수취 → 약 79초 뒤 다른 Solana 주소로 보낸 SOL 송금을 공개 API/RPC로 확인했습니다. 별도로 2단계 송금, 잘못된 자산·시간·수량, 복수 입금 귀속의 모호성, 부분 실패, 위조 SPL 프로그램, 잘못된 Solana 클러스터의 백업 전환을 테스트합니다.
 
-deBridge 요청은 서버 전체에서 순차 처리하고 응답 후 250ms 간격을 둡니다. 같은 주문의 상세 조회는 진행 중 요청을 공유하며, 완료 주문은 5분, 나머지는 15초 캐시합니다. 캐시된 근거에는 원래 조회 시간을 유지합니다. 429 응답 시 5초 동안 새 요청을 제한하며, 상세 일부만 실패해도 `partial` 상태로 표시합니다.
+deBridge 요청은 서버 전체에서 순차 처리하고 응답 후 250ms 간격을 둡니다. 같은 검색 안에서 같은 주문의 상세 조회는 진행 중 요청을 공유하며, 완료 주문은 5분, 나머지는 15초 캐시합니다. 캐시된 근거에는 원래 조회 시간을 유지합니다. 429 응답 시 5초 동안 새 요청을 제한하며, 상세 일부만 실패해도 `partial` 상태로 표시합니다.
 
 ## 공개 RPC 장애 처리
 
@@ -153,8 +173,9 @@ npm run check:live
 npm run build
 ```
 
-- 단위/회귀 테스트 76개: 금액 정밀도, 소수점 미확인, 입력 분류, RPC 체인 불일치·장애 전환·미발견 교차 확인, 위조 이벤트, 환불, protocol ID 매핑 및 네임스페이스 충돌, 트론 탐색기 링크, 메시지 중복, OP 실제 receipt의 해시 계산, 내부 실행 실패 구분, 주소 이력 일부 실패 시 결과 보존, 서버 연결 오류 안내·취소·잘못된 응답 구분, 다중 해시 중복·부분 실패, 주소 방향·체인·기간 필터, 페이지 누적, 동일 거래 접점의 오연결 방지, deBridge 상세 요청 공유·캐시 시각·부분 실패
+- 단위/회귀 테스트 91개: 금액 정밀도, 소수점 미확인, 입력 분류, RPC 체인 불일치·장애 전환·미발견 교차 확인, 위조 이벤트, 환불, protocol ID 매핑 및 네임스페이스 충돌, 트론 탐색기 링크, 메시지 중복, OP 실제 receipt의 해시 계산, 내부 실행 실패 구분, 주소 이력 일부 실패 시 결과 보존, 서버 연결 오류 안내·취소·잘못된 응답 구분, 다중 해시 중복·부분 실패, 주소 방향·체인·기간 필터, 페이지 누적, 동일 거래 접점의 오연결 방지, deBridge 상세 요청 공유·캐시 시각·부분 실패
 - 2026-10-16 확장 후: 일반 송금 3단계, 송금 전후 및 3회 연속 브릿지, 자산·시각·수량 오연결 방지, 기간 필터·상세 조회 생략·페이지 조기 종료 테스트 통과. 실제 Solana 일반 송금만 있는 경로와 Arbitrum → deBridge → Solana → 일반 송금을 21:30–21:35 KST 구간으로 브라우저에서 조회하고 JSON 내보내기를 확인했습니다. 각각 거래 1개/3개, 기간 필터 적용, 해당 요청에서 오류·조회 중단 없음. 다중 브릿지는 합성 fixture로 검증했습니다.
+- Vercel 대응: Node.js 22에서 91개 테스트 통과. Vercel CLI의 독립 빌드 산출물을 직접 import하여 API, JSON 스냅샷, 로고, 연락처 주석 확인. 시간 초과 시 부분 결과 보존, 요청 간 취소 격리, 선택적 공유 요청 제한, 연결 종료, 잘못된 입력과 API 경로 응답 검증. 빌드된 API에서 실제 Ethereum → deBridge → Arbitrum 경로 및 양쪽 RPC 영수증 확인. 실제 Vercel 호스팅 환경의 검증은 배포 후 수행해야 합니다.
 - 선택적 라이브 테스트: LI.FI, deBridge, Stargate, Wormhole, THORChain, CCIP의 실제 출발 해시 → 예상 도착 해시 대조. 공개 API 가용성·한도에 영향을 받음
 - 2026-10-16 체인 ID 수정 후 LI.FI·deBridge·Stargate·Wormhole·CCIP 실거래 대조 및 Solana → Tron 2개 경로 재조회 통과. THORChain은 이 재검증에서 공개 API 접속 실패/DNS 오류로 확인하지 못함
 - 2026-10-16 다중 해시·주소 간 조회를 브라우저에서 확인. Solana 출발·Tron 도착 해시 통합 및 동일 주소 쌍의 최근 30일/3페이지 조회에서 21개 경로·42개 거래 확인. 요청 제한 보완 후 부분 실패 없이 결과 유지, JSON 검색 조건·주소 역할·거래 수 대조, 기록 복원·모바일 가로 넘침 확인

@@ -1,3 +1,5 @@
+import { checkSearchBudget, searchSignal, waitForSearch } from "./search-context.js";
+
 export class UpstreamError extends Error {
   constructor(
     public status: number,
@@ -11,16 +13,18 @@ export async function jsonFetch<T = any>(
   options: RequestInit = {},
   timeout = 10_000,
 ): Promise<T> {
-  const response = await fetch(url, {
+  checkSearchBudget();
+  const signals = [AbortSignal.timeout(timeout), options.signal, searchSignal()].filter((s): s is AbortSignal => !!s);
+  const response = await waitForSearch(fetch(url, {
     ...options,
     redirect: "error",
-    signal: options.signal ?? AbortSignal.timeout(timeout),
+    signal: AbortSignal.any(signals),
     headers: {
       Accept: "application/json",
-      "User-Agent": "Mozilla/5.0 (compatible; BridgeAtlas/0.1)",
+      "User-Agent": "Mozilla/5.0 (compatible; TxTracer/0.1)",
       ...options.headers,
     },
-  });
+  }));
   if (!response.ok)
     throw new UpstreamError(
       response.status,
@@ -29,7 +33,7 @@ export async function jsonFetch<T = any>(
   const type = response.headers.get("content-type") || "";
   if (!type.includes("json"))
     throw new Error(`JSON 응답이 아님 · ${new URL(url).hostname}`);
-  return response.json() as Promise<T>;
+  return waitForSearch(response.json()) as Promise<T>;
 }
 export async function mapLimit<T, R>(
   values: T[],

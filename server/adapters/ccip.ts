@@ -1,4 +1,4 @@
-import { jsonFetch } from "../http";
+import { jsonFetch } from "../http.js";
 import {
   evidence,
   leg,
@@ -6,8 +6,8 @@ import {
   timestamp,
   type AdapterInput,
   type AdapterResult,
-} from "./common";
-import type { BridgeRoute } from "../../shared/types";
+} from "./common.js";
+import type { BridgeRoute } from "../../shared/types.js";
 function chainId(n: any) {
   const family = n?.chainFamily?.toLowerCase();
   if (!family || family === "evm") return n?.chainId;

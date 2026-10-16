@@ -1,8 +1,8 @@
 import { parseUnits } from "ethers";
-import { addressSearchLimits } from "../shared/investigation";
-import type { AddressPath, BridgeRoute, Diagnostic, InvestigationRequest, TransferEvent } from "../shared/types";
-import { sameAddress } from "./adapters/common";
-import { assetKey, incomingTransfers, type TransferQuery, type TransferScan } from "./transfers";
+import { addressSearchLimits } from "../shared/investigation.js";
+import type { AddressPath, BridgeRoute, Diagnostic, InvestigationRequest, TransferEvent } from "../shared/types.js";
+import { sameAddress } from "./adapters/common.js";
+import { assetKey, incomingTransfers, type TransferQuery, type TransferScan } from "./transfers.js";
 
 type PairRequest = Extract<InvestigationRequest, { mode: "address-pair" }>;
 export type TransferLookup = (query: TransferQuery) => Promise<TransferScan>;

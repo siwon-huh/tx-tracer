@@ -1,6 +1,6 @@
-import snapshot from "./official-snapshot.json";
-import { getChain } from "./chains";
-import { jsonFetch } from "./http";
+import snapshot from "./official-snapshot.json" with { type: "json" };
+import { getChain } from "./chains.js";
+import { jsonFetch } from "./http.js";
 type Deployment = {
   bridge: string;
   portal: string;

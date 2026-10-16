@@ -1,12 +1,12 @@
-import { jsonFetch, UpstreamError } from "../http";
+import { jsonFetch, UpstreamError } from "../http.js";
 import {
   evidence,
   leg,
   timestamp,
   type AdapterInput,
   type AdapterResult,
-} from "./common";
-import type { BridgeRoute } from "../../shared/types";
+} from "./common.js";
+import type { BridgeRoute } from "../../shared/types.js";
 export function normalizeLayerzero(row: any, url: string): BridgeRoute {
   const path = row.pathway || {};
   const name = path.sender?.name || path.sender?.id || "LayerZero application";

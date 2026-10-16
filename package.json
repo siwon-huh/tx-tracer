@@ -4,18 +4,20 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22.13"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "tsx watch server/index.ts",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && tsc --project server/tsconfig.json && vite build",
     "start": "NODE_ENV=production tsx server/index.ts",
     "test": "tsx --test tests/*.test.ts",
     "check:live": "tsx scripts/check-live.ts",
     "update:chains": "tsx scripts/update-chain-catalog.ts",
-    "update:logos": "tsx scripts/update-logos.ts"
+    "update:logos": "tsx scripts/update-logos.ts",
+    "check:vercel": "node scripts/check-vercel-build.mjs"
   },
   "dependencies": {
+    "@vercel/functions": "^3.10.1",
     "@xyflow/react": "^12.8.5",
     "dotenv": "^17.2.3",
     "ethers": "^6.15.0",

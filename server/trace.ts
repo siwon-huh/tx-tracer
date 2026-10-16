@@ -1,3 +1,4 @@
+import { checkSearchBudget, inflightKey, searchExpired, SEARCH_TIMEOUT_MESSAGE } from "./search-context.js";
 import { z } from "zod";
 import {
   AUTO_CHAIN_IDS,
@@ -6,20 +7,20 @@ import {
   getChain,
   hasChain,
   txUrl,
-} from "./chains";
-import { errorText, mapLimit, TTLCache } from "./http";
-import { timeWindow, inWindow } from "./time-window";
-import { lifi } from "./adapters/lifi";
-import { debridge } from "./adapters/debridge";
-import { layerzero } from "./adapters/layerzero";
-import { wormhole } from "./adapters/wormhole";
-import { thorchain } from "./adapters/thorchain";
-import { ccip } from "./adapters/ccip";
-import { rhino } from "./adapters/rhino";
-import { addressHistory } from "./history";
-import { decodeOfficial, getReceipt, verifyRoutes } from "./onchain";
-import type { AdapterInput, AdapterResult } from "./adapters/common";
-import type { BridgeRoute, TraceResult, Diagnostic } from "../shared/types";
+} from "./chains.js";
+import { errorText, mapLimit, TTLCache } from "./http.js";
+import { timeWindow, inWindow } from "./time-window.js";
+import { lifi } from "./adapters/lifi.js";
+import { debridge } from "./adapters/debridge.js";
+import { layerzero } from "./adapters/layerzero.js";
+import { wormhole } from "./adapters/wormhole.js";
+import { thorchain } from "./adapters/thorchain.js";
+import { ccip } from "./adapters/ccip.js";
+import { rhino } from "./adapters/rhino.js";
+import { addressHistory } from "./history.js";
+import { decodeOfficial, getReceipt, verifyRoutes } from "./onchain.js";
+import type { AdapterInput, AdapterResult } from "./adapters/common.js";
+import type { BridgeRoute, TraceResult, Diagnostic } from "../shared/types.js";
 
 export const querySchema = z.object({
   query: z.string().trim().min(24).max(130),
@@ -138,6 +139,7 @@ export async function trace(raw: unknown, options: TraceOptions = {}): Promise<T
   if (kind === "address") timeWindow(parsed);
   if (parsed.chainId && !hasChain(parsed.chainId))
     throw new Error("등록되지 않은 체인입니다. 체인 선택을 확인하세요.");
+  checkSearchBudget();
   const input: AdapterInput = {
     ...parsed,
     chainId: canonicalChain(parsed.chainId),
@@ -146,14 +148,15 @@ export async function trace(raw: unknown, options: TraceOptions = {}): Promise<T
   const key = JSON.stringify({ input, options });
   const cached = cache.get(key);
   if (cached) return cached;
-  if (inflight.has(key)) return inflight.get(key)!;
+  const pendingKey = inflightKey(key);
+  if (inflight.has(pendingKey)) return inflight.get(pendingKey)!;
   const task = runTrace(input, options)
     .then((r) => {
-      cache.set(key, r, 30_000);
+      if (!searchExpired()) cache.set(key, r, 30_000);
       return r;
     })
-    .finally(() => inflight.delete(key));
-  inflight.set(key, task);
+    .finally(() => inflight.delete(pendingKey));
+  inflight.set(pendingKey, task);
   return task;
 }
 async function runTrace(input: AdapterInput, options: TraceOptions): Promise<TraceResult> {
@@ -187,6 +190,7 @@ async function runTrace(input: AdapterInput, options: TraceOptions): Promise<Tra
     running.map(async ([provider, adapter]) => {
       const start = Date.now();
       try {
+        checkSearchBudget();
         const data = await adapter(input);
         if (data.hasMore === false || ["LI.FI", "LayerZero / Stargate", "Chainlink CCIP"].includes(provider)) completeProviders.push(provider);
         routes.push(...data.routes);
@@ -273,7 +277,11 @@ async function runTrace(input: AdapterInput, options: TraceOptions): Promise<Tra
     warnings.push(
       "LayerZero·CCIP는 첫 페이지를 조회합니다. LI.FI는 기간을 적용하며, deBridge·Wormhole·Midgard·탐색기는 선택한 페이지를 조회합니다.",
     );
-  } else diagnostics.push(...(await verifyRoutes(merged)));
+  } else if (!searchExpired()) diagnostics.push(...(await verifyRoutes(merged)));
+  if (searchExpired()) {
+    warnings.push(SEARCH_TIMEOUT_MESSAGE);
+    diagnostics.push({ provider: "조회 범위", state: "partial", durationMs: Date.now() - started, count: merged.length, detail: SEARCH_TIMEOUT_MESSAGE });
+  }
   if (diagnostics.some((d) => d.state === "error" || d.state === "partial"))
     warnings.push(
       "일부 데이터 소스 조회가 실패했습니다. 아래 조회 로그에서 범위를 확인하고 다시 조회하세요.",

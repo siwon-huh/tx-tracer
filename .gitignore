@@ -4,6 +4,7 @@ dist/
 .env.*
 !.env.example
 .cache/
+.vercel/
 artifacts/
 .DS_Store
 *.log

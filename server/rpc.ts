@@ -1,7 +1,8 @@
+import { checkSearchBudget, searchExpired, waitForSearch } from "./search-context.js";
 import { lookup } from "node:dns/promises";
 import { isIP } from "node:net";
-import { getChain } from "./chains";
-import { errorText, jsonFetch, TTLCache } from "./http";
+import { getChain } from "./chains.js";
+import { errorText, jsonFetch, TTLCache } from "./http.js";
 
 type Health = {
   failures: number;
@@ -37,7 +38,7 @@ function privateIp(ip: string) {
 async function transport(url: string, method: string, params: unknown[]) {
   const host = new URL(url).hostname;
   if (!dnsCache.get(host)) {
-    const records = await lookup(host, { all: true });
+    const records = await waitForSearch(lookup(host, { all: true }));
     if (!records.length || records.some((r) => privateIp(r.address)))
       throw new Error("비공개 네트워크 RPC는 허용되지 않음");
     dnsCache.set(host, true, 3600_000);
@@ -67,6 +68,7 @@ export class RpcPool {
     if (this.active >= 6) await new Promise<void>((r) => this.waiting.push(r));
     else this.active++;
     try {
+      checkSearchBudget();
       return await fn();
     } finally {
       const next = this.waiting.shift();
@@ -80,6 +82,7 @@ export class RpcPool {
     params: unknown[],
     options: { nullQuorum?: number; endpoints?: string[] } = {},
   ): Promise<{ result: any; endpoint: string; checked: string[] }> {
+    checkSearchBudget();
     const urls = options.endpoints ?? getChain(chainId)?.rpcs ?? [];
     const sorted = [...urls]
       .sort((a, b) => {
@@ -102,7 +105,7 @@ export class RpcPool {
       this.health.set(url, state);
       const started = Date.now();
       try {
-        const result = await this.limited(async () => {
+        const result = await waitForSearch(this.limited(async () => {
           if (!state.chainVerified || state.chainId !== String(chainId)) {
             const actual = await this.send(url, "eth_chainId", []);
             if (BigInt(actual) !== BigInt(chainId))
@@ -110,8 +113,9 @@ export class RpcPool {
             state.chainVerified = true;
             state.chainId = String(chainId);
           }
+          checkSearchBudget();
           return this.send(url, method, params);
-        });
+        }));
         state.failures = 0;
         state.cooldownUntil = 0;
         state.latencyMs = Date.now() - started;
@@ -121,6 +125,7 @@ export class RpcPool {
         if (result != null || ++nulls >= (options.nullQuorum ?? 1))
           return { result, endpoint: new URL(url).hostname, checked };
       } catch (e) {
+        if (searchExpired()) throw e;
         state.failures++;
         state.lastError = errorText(e);
         state.cooldownUntil =

@@ -1,5 +1,5 @@
-import snapshot from "./protocol-chain-snapshot.json";
-import { jsonFetch } from "./http";
+import snapshot from "./protocol-chain-snapshot.json" with { type: "json" };
+import { jsonFetch } from "./http.js";
 
 export type ChainNamespace =
   "native" | "lifi" | "debridge" | "layerzero" | "wormhole";

@@ -1,4 +1,4 @@
-import { jsonFetch } from "../http";
+import { jsonFetch } from "../http.js";
 import {
   amount,
   evidence,
@@ -6,8 +6,8 @@ import {
   timestamp,
   type AdapterInput,
   type AdapterResult,
-} from "./common";
-import type { BridgeRoute } from "../../shared/types";
+} from "./common.js";
+import type { BridgeRoute } from "../../shared/types.js";
 const bases = [
   "https://gateway.liquify.com/chain/thorchain_midgard",
   "https://midgard.thorchain.network",

@@ -1,16 +1,17 @@
+import { checkSearchBudget, searchExpired, searchDeadline, SEARCH_TIMEOUT_MESSAGE } from "./search-context.js";
 import { z } from "zod";
-import { addressSearchLimits } from "../shared/investigation";
+import { addressSearchLimits } from "../shared/investigation.js";
 import type {
   BridgeRoute, ConnectedTransaction, InvestigationInputResult,
   InvestigationRequest, RouteConnection, TraceResult,
-} from "../shared/types";
-import { sameAddress } from "./adapters/common";
-import { canonicalChain, hasChain } from "./chains";
-import { errorText, mapLimit } from "./http";
-import { classify, mergeRoutes, trace } from "./trace";
-import { type TransferLookup } from "./address-paths";
-import { findFundPaths } from "./fund-paths";
-import { inWindow, timeWindow } from "./time-window";
+} from "../shared/types.js";
+import { sameAddress } from "./adapters/common.js";
+import { canonicalChain, hasChain } from "./chains.js";
+import { errorText, mapLimit } from "./http.js";
+import { classify, mergeRoutes, trace } from "./trace.js";
+import { type TransferLookup } from "./address-paths.js";
+import { findFundPaths } from "./fund-paths.js";
+import { inWindow, timeWindow } from "./time-window.js";
 
 const chain = z.string().regex(/^[a-zA-Z0-9:_-]{1,80}$/).optional();
 export const investigationSchema = z.discriminatedUnion("mode", [
@@ -133,6 +134,7 @@ export async function investigate(raw: unknown, lookup: TraceFunction = trace, t
   const runJob = async (job: { query: string; chainId?: string; page: number }, skipProviders: string[] = []) => {
     const report: InvestigationInputResult = { query: job.query, page: request.mode === "address-pair" ? job.page : undefined, state: "empty", count: 0, detail: "조회 범위에서 미발견" };
     try {
+      checkSearchBudget();
       const kind = request.mode === "batch" ? "transaction" : "address";
       classify(job.query, kind);
       const result = await lookup({ ...job, kind, days: request.mode === "address-pair" ? request.days : 30, limit: 25,
@@ -149,8 +151,9 @@ export async function investigate(raw: unknown, lookup: TraceFunction = trace, t
   const scanBridges = async (address: string, chainId?: string) => {
     const rows: Awaited<ReturnType<typeof runJob>>[] = [];
     const complete = new Set<string>();
-    const deadline = Date.now() + 30_000;
+    const deadline = Math.min(Date.now() + 30_000, searchDeadline());
     for (let page = 1; page <= (request.mode === "address-pair" ? request.pages : 1); page++) {
+      if (searchExpired()) break;
       if (page > 1 && (providers.every(p => complete.has(p)) || Date.now() > deadline)) break;
       const row = await runJob({ query: address, chainId, page }, [...complete]);
       rows.push(row);
@@ -181,8 +184,9 @@ export async function investigate(raw: unknown, lookup: TraceFunction = trace, t
     const found = scan.rows.flatMap(row => row.result ? [row.result] : []);
     return { routes: combineObservations(found.flatMap(r => r.routes)), diagnostics: found.flatMap(r => r.diagnostics.map(d => ({ ...d, provider: `${address.slice(0, 10)}… · ${d.provider}` }))), warnings: found.flatMap(r => r.warnings), truncated: scan.truncated };
   }) : undefined;
-  if (addressSearch && initial?.truncated) addressSearch.scope.truncated = true;
+  if (addressSearch && (initial?.truncated || searchExpired())) addressSearch.scope.truncated = true;
   const warnings = [...new Set(successes.flatMap(r => r.warnings))];
+  if (searchExpired()) warnings.push(SEARCH_TIMEOUT_MESSAGE);
   warnings.push("연결 거래 목록에는 관측한 브릿지 출발·도착 거래와 주소 경로에서 확인한 일반 송금이 포함됩니다. 동일 체인·동일 거래 접점도 동일 자금의 재사용을 증명하지는 않습니다.");
   if (request.mode === "address-pair") {
     warnings.push(`${request.startTime} ~ ${request.endTime} · 주소별 최대 ${request.pages}페이지. A에서 출발하여 일반 송금과 중간 브릿지를 따라 B까지 탐색합니다. 기간 밖 거래의 상세 조회를 생략하며, 지원하는 API에는 기간 필터를 전달합니다.`);

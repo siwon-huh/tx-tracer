@@ -1,11 +1,12 @@
+import { searchDeadline, searchExpired } from "./search-context.js";
 import { parseUnits } from "ethers";
-import { addressSearchLimits } from "../shared/investigation";
-import type { AddressPath, AddressPathStep, BridgeRoute, Diagnostic, InvestigationRequest, Leg, TransferEvent } from "../shared/types";
-import { sameAddress } from "./adapters/common";
-import { follows, followsBridge, type TransferLookup } from "./address-paths";
-import { chainName } from "./chains";
-import { assetKey, incomingTransfers, type TransferScan } from "./transfers";
-import { inWindow, timeWindow } from "./time-window";
+import { addressSearchLimits } from "../shared/investigation.js";
+import type { AddressPath, AddressPathStep, BridgeRoute, Diagnostic, InvestigationRequest, Leg, TransferEvent } from "../shared/types.js";
+import { sameAddress } from "./adapters/common.js";
+import { follows, followsBridge, type TransferLookup } from "./address-paths.js";
+import { chainName } from "./chains.js";
+import { assetKey, incomingTransfers, type TransferScan } from "./transfers.js";
+import { inWindow, timeWindow } from "./time-window.js";
 
 type Pair = Extract<InvestigationRequest, { mode: "address-pair" }>;
 export type BridgeLookup = (address: string, chainId: string) => Promise<{
@@ -44,7 +45,7 @@ export async function findFundPaths(routes: BridgeRoute[], request: Pair, load: 
   const window = timeWindow(request);
   const maxHops = request.maxHops ?? addressSearchLimits.maxHops, maxBridges = request.maxBridges ?? addressSearchLimits.maxBridges;
   const paths: AddressPath[] = [], diagnostics: Diagnostic[] = [], warnings: string[] = [];
-  const budget = { remaining: 80, deadline: Date.now() + 90_000 };
+  const budget = { remaining: 80, deadline: Math.min(Date.now() + 90_000, searchDeadline()) };
   const scans = new Map<string, TransferScan>();
   const wallets = new Set<string>();
   const bridgeScans = new Map<string, Awaited<ReturnType<BridgeLookup>>>();
@@ -84,7 +85,7 @@ export async function findFundPaths(routes: BridgeRoute[], request: Pair, load: 
   }
   if (sourceChains.length > 3) truncated = true;
   while (queue.length && paths.length < 50) {
-    if (Date.now() > budget.deadline || budget.remaining <= 0 || expanded++ >= 100) { truncated = true; break; }
+    if (searchExpired() || Date.now() > budget.deadline || budget.remaining <= 0 || expanded++ >= 100) { truncated = true; break; }
     const state = queue.shift()!;
     const { leg } = state;
     const chainId = leg.chainId!, address = leg.address!;
@@ -117,7 +118,7 @@ export async function findFundPaths(routes: BridgeRoute[], request: Pair, load: 
     }
     // Initial A bridge orders were already loaded. Every other wallet can start another bridge.
     if (!state.last || state.bridges >= maxBridges || !loadBridges) continue;
-    if (Date.now() > budget.deadline) { truncated = true; break; }
+    if (searchExpired() || Date.now() > budget.deadline) { truncated = true; break; }
     let bridgeScan = bridgeScans.get(key);
     if (!bridgeScan) {
       if (bridgeScans.size >= 8) { truncated = true; continue; }

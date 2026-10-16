@@ -1,12 +1,12 @@
-import snapshot from "./chainlist-snapshot.json";
-import type { Chain } from "../shared/types";
-import { jsonFetch } from "./http";
+import snapshot from "./chainlist-snapshot.json" with { type: "json" };
+import type { Chain } from "../shared/types.js";
+import { jsonFetch } from "./http.js";
 import {
   allCatalogChains,
   catalogMetadata,
   resolveChain,
   type ChainNamespace,
-} from "./chain-catalog";
+} from "./chain-catalog.js";
 
 export const AUTO_CHAIN_IDS = [
   1, 8453, 42161, 10, 56, 137, 43114, 100, 324, 59144, 534352, 5000,

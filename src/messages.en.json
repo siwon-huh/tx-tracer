@@ -535,5 +535,11 @@
   "검색 수정": "Edit search",
   "새 검색": "New search",
   "최근 검색": "Recent searches",
-  "전체 보기": "View all"
+  "전체 보기": "View all",
+  "조회 시간이 초과되었습니다. 확인한 결과만 표시합니다. 기간을 좁혀 다시 조회하세요.": "The search timed out. Showing the results found so far. Try a shorter time range.",
+  "조회 범위": "Search scope",
+  "조회가 취소되었습니다.": "The search was cancelled.",
+  "지금은 조회할 수 없습니다. 잠시 후 다시 시도하세요.": "Search is temporarily unavailable. Please try again shortly.",
+  "요청한 경로를 찾을 수 없습니다.": "The requested endpoint was not found.",
+  "입력 내용이 너무 큽니다.": "The input is too large."
 }

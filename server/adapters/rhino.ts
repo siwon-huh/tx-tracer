@@ -1,6 +1,6 @@
-import { jsonFetch, UpstreamError } from "../http";
-import { evidence, leg, type AdapterInput, type AdapterResult } from "./common";
-import type { BridgeRoute } from "../../shared/types";
+import { jsonFetch, UpstreamError } from "../http.js";
+import { evidence, leg, type AdapterInput, type AdapterResult } from "./common.js";
+import type { BridgeRoute } from "../../shared/types.js";
 const chainIds: Record<string, string> = {
   ETHEREUM: "1",
   ARBITRUM: "42161",

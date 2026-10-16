@@ -1,6 +1,6 @@
-import { chainName, txUrl } from "./chains";
-import { jsonFetch, mapLimit } from "./http";
-import type { Candidate, Diagnostic } from "../shared/types";
+import { chainName, txUrl } from "./chains.js";
+import { jsonFetch, mapLimit } from "./http.js";
+import type { Candidate, Diagnostic } from "../shared/types.js";
 const explorers: Record<string, string> = {
   1: "https://eth.blockscout.com",
   10: "https://optimism.blockscout.com",

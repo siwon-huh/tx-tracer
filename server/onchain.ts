@@ -1,12 +1,12 @@
 import { Interface, formatUnits } from "ethers";
 import { getL2TransactionHashes } from "viem/op-stack";
-import { rpc } from "./rpc";
-import { chainName, getChain, txUrl } from "./chains";
-import { leg } from "./adapters/common";
-import { TTLCache, errorText, mapLimit } from "./http";
-import type { BridgeRoute, Diagnostic, Leg } from "../shared/types";
-import { opDeployments } from "./official-registry";
-export { opDeployments } from "./official-registry";
+import { rpc } from "./rpc.js";
+import { chainName, getChain, txUrl } from "./chains.js";
+import { leg } from "./adapters/common.js";
+import { TTLCache, errorText, mapLimit } from "./http.js";
+import type { BridgeRoute, Diagnostic, Leg } from "../shared/types.js";
+import { opDeployments } from "./official-registry.js";
+export { opDeployments } from "./official-registry.js";
 
 // Deployment addresses are verified against the official Superchain Registry and Arbitrum docs.
 // Event signatures alone are never sufficient to identify a bridge.

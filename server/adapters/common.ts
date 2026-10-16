@@ -1,7 +1,7 @@
 import { formatUnits } from "ethers";
-import type { ChainNamespace } from "../chain-catalog";
-import { canonicalChain, chainName, txUrl } from "../chains";
-import type { BridgeRoute, Evidence, Leg, QueryKind } from "../../shared/types";
+import type { ChainNamespace } from "../chain-catalog.js";
+import { canonicalChain, chainName, txUrl } from "../chains.js";
+import type { BridgeRoute, Evidence, Leg, QueryKind } from "../../shared/types.js";
 
 export interface AdapterInput {
   query: string;

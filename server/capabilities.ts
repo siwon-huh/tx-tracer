@@ -1,4 +1,4 @@
-import type { Capability } from "../shared/types";
+import type { Capability } from "../shared/types.js";
 export const capabilities: Capability[] = [
   {
     id: "lifi",

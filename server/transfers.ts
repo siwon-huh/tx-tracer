@@ -1,8 +1,8 @@
-import { amount, sameAddress } from "./adapters/common";
-import { chainName, getChain, txUrl } from "./chains";
-import { errorText, jsonFetch } from "./http";
-import { solanaRpc } from "./solana-rpc";
-import type { Diagnostic, TransferEvent } from "../shared/types";
+import { amount, sameAddress } from "./adapters/common.js";
+import { chainName, getChain, txUrl } from "./chains.js";
+import { errorText, jsonFetch } from "./http.js";
+import { solanaRpc } from "./solana-rpc.js";
+import type { Diagnostic, TransferEvent } from "../shared/types.js";
 
 export interface TransferScan {
   transfers: TransferEvent[];

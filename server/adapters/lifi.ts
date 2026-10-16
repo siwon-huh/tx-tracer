@@ -1,4 +1,4 @@
-import { jsonFetch, UpstreamError } from "../http";
+import { jsonFetch, UpstreamError } from "../http.js";
 import {
   amount,
   evidence,
@@ -6,8 +6,8 @@ import {
   timestamp,
   type AdapterInput,
   type AdapterResult,
-} from "./common";
-import type { BridgeRoute } from "../../shared/types";
+} from "./common.js";
+import type { BridgeRoute } from "../../shared/types.js";
 
 export function normalizeLifi(row: any, url: string): BridgeRoute | null {
   if (!row.sending?.txHash || row.status === "NOT_FOUND") return null;

@@ -1,6 +1,6 @@
-import { jsonFetch, UpstreamError } from "../http";
-import { evidence, leg, type AdapterInput, type AdapterResult } from "./common";
-import type { BridgeRoute } from "../../shared/types";
+import { jsonFetch, UpstreamError } from "../http.js";
+import { evidence, leg, type AdapterInput, type AdapterResult } from "./common.js";
+import type { BridgeRoute } from "../../shared/types.js";
 export function normalizeWormhole(row: any, url: string): BridgeRoute {
   const s = row.content?.standarizedProperties || {};
   const payload = row.content?.payload;
