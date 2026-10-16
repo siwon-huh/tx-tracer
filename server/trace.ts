@@ -20,7 +20,10 @@ import { rhino } from "./adapters/rhino.js";
 import { addressHistory } from "./history.js";
 import { decodeOfficial, getReceipt, verifyRoutes } from "./onchain.js";
 import type { AdapterInput, AdapterResult } from "./adapters/common.js";
-import type { BridgeRoute, TraceResult, Diagnostic } from "../shared/types.js";
+import type { BridgeRoute, TraceResult, Diagnostic, TransferEvent } from "../shared/types.js";
+import { evmTransactionTransfers } from "./transaction-transfers.js";
+import { parseSolanaTransfers } from "./transfers.js";
+import { solanaRpc } from "./solana-rpc.js";
 
 export const querySchema = z.object({
   query: z.string().trim().min(24).max(130),
@@ -164,6 +167,8 @@ async function runTrace(input: AdapterInput, options: TraceOptions): Promise<Tra
   const diagnostics: Diagnostic[] = [];
   const warnings: string[] = [];
   const routes: BridgeRoute[] = [];
+  const transfers: TransferEvent[] = [];
+  const receiptHits: { chainId: string; receipt: any }[] = [];
   const searchedChains: string[] = [];
   const completeProviders: string[] = [];
   const running = providers.filter(([name]) =>
@@ -232,6 +237,7 @@ async function runTrace(input: AdapterInput, options: TraceOptions): Promise<Tra
             : `${checked.join(", ")} · 미발견`,
         });
         if (result) {
+          receiptHits.push({ chainId: id, receipt: result });
           routes.push(...decodeOfficial(id, result));
           history.candidates.push({
             hash: input.query,
@@ -265,6 +271,27 @@ async function runTrace(input: AdapterInput, options: TraceOptions): Promise<Tra
         r.source.chainId === input.chainId ||
         r.destination.chainId === input.chainId,
     );
+  if (input.kind === "transaction" && !merged.length && !searchExpired()) {
+    const start = Date.now();
+    let partial = false;
+    const failures: string[] = [];
+    await mapLimit(receiptHits, 2, async ({ chainId, receipt }) => {
+      try {
+        const found = await evmTransactionTransfers(chainId, receipt);
+        transfers.push(...found.transfers); partial ||= found.partial;
+      } catch (error) { failures.push(errorText(error)); }
+    });
+    if (/^[1-9A-HJ-NP-Za-km-z]{80,90}$/.test(input.query) && (!input.chainId || input.chainId === "solana")) {
+      try {
+        const data = await solanaRpc("getTransaction", [input.query, { encoding: "jsonParsed", maxSupportedTransactionVersion: 0, commitment: "confirmed" }]);
+        if (!data.result.transaction?.signatures?.includes(input.query)) throw new Error("거래 해시가 일치하지 않습니다.");
+        transfers.push(...parseSolanaTransfers(data.result, input.query, data.endpoint, data.fetchedAt));
+        searchedChains.push("solana");
+      } catch (error) { failures.push(errorText(error)); }
+    }
+    diagnostics.push({ provider: "거래 내 송금", state: failures.length || partial ? transfers.length ? "partial" : "error" : transfers.length ? "ok" : "empty",
+      durationMs: Date.now() - start, count: transfers.length, detail: failures.join(" / ") || (partial ? "일부 송금의 자산 정보를 확인하지 못했습니다." : `송금 ${transfers.length}개 확인`) });
+  }
   if (input.kind === "address") {
     const { start, end } = timeWindow(input);
     merged = merged.filter(
@@ -301,6 +328,7 @@ async function runTrace(input: AdapterInput, options: TraceOptions): Promise<Tra
     kind: input.kind,
     chainId: input.chainId,
     routes: merged,
+    transfers,
     candidates: history.candidates,
     diagnostics,
     warnings: [...new Set(warnings)],

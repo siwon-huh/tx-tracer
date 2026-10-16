@@ -541,5 +541,20 @@
   "조회가 취소되었습니다.": "The search was cancelled.",
   "지금은 조회할 수 없습니다. 잠시 후 다시 시도하세요.": "Search is temporarily unavailable. Please try again shortly.",
   "요청한 경로를 찾을 수 없습니다.": "The requested endpoint was not found.",
-  "입력 내용이 너무 큽니다.": "The input is too large."
+  "입력 내용이 너무 큽니다.": "The input is too large.",
+  "맵에 추가": "Add to map",
+  "새 맵": "New map",
+  "맵에 포함된 검색": "Searches on this map",
+  "검색 {0}개": "{0} searches",
+  "맵에 추가하는 중": "Adding to map",
+  "새 경로를 찾지 못했습니다. 기존 맵을 유지합니다.": "No new routes found. Your map is unchanged.",
+  "주소 연결": "Address connection",
+  "경로 {0}개 / 연결 {1}개": "{0} routes / {1} connections",
+  "거래 / 주소 접점": "Transaction / address junction",
+  "거래 내 송금": "Transfers in transaction",
+  "일부 송금의 자산 정보를 확인하지 못했습니다.": "Asset details could not be verified for some transfers.",
+  "송금 {0}개 확인": "{0} transfers found",
+  "거래와 블록 정보가 일치하지 않습니다.": "Transaction and block data do not match.",
+  "거래 시각을 확인하지 못했습니다.": "The transaction timestamp could not be verified.",
+  "거래 해시가 일치하지 않습니다.": "Transaction hashes do not match."
 }

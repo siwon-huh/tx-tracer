@@ -203,6 +203,8 @@ h3 { font-size: 13px; font-weight: 550; letter-spacing: -.15px; }
 .legend-line { background: none; border-color: var(--map-bridge); }
 .legend-line.dashed { border-color: var(--map-unresolved); }
 .legend-line.transfer { background: none; border-color: var(--map-transfer); }
+.atlas-explorer { --map-connection: var(--text-secondary); }
+.legend-line.connection { background: none; border-color: var(--text-secondary); border-top-style: dashed; }
 .small-link { color: var(--text-muted); font-size: 11px; }
 .small-link:hover { color: var(--text-primary); }
 .section-toolbar { padding: 16px 18px; gap: 12px; border-color: var(--line); }
@@ -446,3 +448,12 @@ tbody tr:hover { background: var(--surface-soft); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+.map-searches { display: flex; align-items: center; gap: 6px; padding: 0 0 16px; flex-wrap: wrap; }
+.map-searches > span { color: var(--text-muted); font-size: 11px; margin-right: 5px; }
+.map-searches button { display: flex; align-items: center; gap: 7px; padding: 6px 9px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--text-secondary); font-size: 11px; }
+.map-searches button[aria-pressed="true"] { border-color: var(--line-strong); background: var(--surface-soft); color: var(--text-primary); }
+.map-searches button b { font-size: 10px; font-weight: 500; color: var(--text-muted); }
+.map-loading { display: flex; align-items: center; gap: 9px; padding: 12px 14px; margin-bottom: 16px; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; color: var(--text-secondary); }
+.map-loading small { color: var(--text-muted); }
+.map-loading button { margin-left: auto; border: 0; background: none; color: var(--text-secondary); font-size: 11px; }

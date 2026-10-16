@@ -142,8 +142,9 @@ export async function investigate(raw: unknown, lookup: TraceFunction = trace, t
       }, request.mode === "address-pair" ? { bridgesOnly: true, paginatedOnly: job.page > 1, skipProviders } : {});
       const queried = result.diagnostics.filter(d => d.state !== "skipped");
       const errors = queried.filter(d => d.state === "error" || d.state === "partial").length;
-      report.state = errors ? (queried.every(d => d.state === "error") && !result.routes.length ? "error" : "partial") : result.routes.length ? "ok" : "empty";
-      report.count = result.routes.length; report.detail = `${result.routes.length}개 관측 경로 · ${errors}개 소스 실패`;
+      const count = result.routes.length + (result.transfers?.length || 0);
+      report.state = errors ? (queried.every(d => d.state === "error") && !count ? "error" : "partial") : count ? "ok" : "empty";
+      report.count = count; report.detail = `${count}개 관측 경로 · ${errors}개 소스 실패`;
       return { result, report };
     } catch (e) { report.state = "error"; report.detail = errorText(e); return { result: undefined, report }; }
   };
@@ -204,6 +205,12 @@ export async function investigate(raw: unknown, lookup: TraceFunction = trace, t
   warnings.push(...(addressSearch?.warnings || []));
   const allBridges = [...routes, ...(addressPaths || []).flatMap(p => p.steps?.flatMap(s => s.type === "bridge" ? [s.route] : []) || [])];
   const transactions = connectedTransactions(allBridges);
+  const transfers = request.mode === "batch" ? [...new Map(successes.flatMap(result => result.transfers || []).map(t => [`${t.chainId}:${hashKey(t.txHash)}:${t.sequence}:${t.tokenAddress}`, t])).values()] : undefined;
+  for (const transfer of transfers || []) {
+    const existing = transactions.find(t => t.chainId === transfer.chainId && hashKey(t.txHash) === hashKey(transfer.txHash));
+    if (existing) { if (!existing.roles.includes("transfer")) existing.roles.push("transfer"); }
+    else transactions.push({ chainId: transfer.chainId, chain: transfer.chain, txHash: transfer.txHash, explorerUrl: transfer.explorerUrl, roles: ["transfer"], routeIds: [] });
+  }
   for (const path of addressPaths || []) for (const transfer of path.transfers) {
     const existing = transactions.find(t => t.chainId === transfer.chainId && hashKey(t.txHash) === hashKey(transfer.txHash));
     if (existing) {
@@ -217,7 +224,7 @@ export async function investigate(raw: unknown, lookup: TraceFunction = trace, t
     query: request.mode === "batch" ? request.queries.join("\n") : `${request.sourceAddress} → ${request.destinationAddress}`,
     kind: request.mode === "batch" ? "transaction" : "address",
     chainId: request.mode === "batch" ? request.chainId : undefined,
-    routes, candidates: [],
+    routes, transfers, candidates: [],
     diagnostics: results.flatMap(({ result, report }) => result?.diagnostics.map(d => ({
       ...d, provider: `${report.query.slice(0, 10)}…${report.page ? ` · ${report.page}페이지` : ""} · ${d.provider}`,
     })) || []).concat(addressSearch?.diagnostics || []),

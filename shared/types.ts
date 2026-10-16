@@ -59,6 +59,7 @@ export interface TraceResult {
   kind: QueryKind;
   chainId?: string;
   routes: BridgeRoute[];
+  transfers?: TransferEvent[];
   candidates: Candidate[];
   diagnostics: Diagnostic[];
   warnings: string[];

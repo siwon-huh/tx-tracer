@@ -9,7 +9,8 @@ import {
   ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronLeft, ChevronRight, CircleHelp,
   Clock3, Copy, Focus, GitFork, Maximize2, Minimize2, Minus, Plus, ShieldCheck, Wallet,
 } from "lucide-react";
-import type { AddressPath, BridgeRoute, Leg, RouteConnection } from "../shared/types";
+import type { BridgeRoute, Leg } from "../shared/types";
+import type { MapEntry, MapConnection } from "./trace-map";
 
 import { short, amountLabel } from "./format";
 import { BridgeLogo, ChainLogo } from "./BrandLogo";
@@ -36,8 +37,6 @@ type FlowData = {
   incoming?: Position; outgoing?: Position; active?: boolean; title?: string;
 };
 type FlowNodeType = Node<FlowData>;
-type RouteEntry = { id: string; selectionId: string; route?: BridgeRoute; path?: AddressPath; source: Leg; destination: Leg; label: string };
-const stepsOf = (path?: AddressPath) => path?.steps || path?.transfers.map(transfer => ({ type: "transfer" as const, transfer })) || [];
 
 function ChainMark({ leg }: { leg: Leg }) {
 
@@ -49,7 +48,7 @@ function FlowNode({ data: d }: NodeProps<FlowNodeType>) {
   const [copyError, setCopyError] = useState(false);
   useEffect(() => { if (copied || copyError) { const id = setTimeout(() => { setCopied(false); setCopyError(false); }, 1800); return () => clearTimeout(id); } }, [copied, copyError]);
   if (d.kind === "lane") return <div className={`atlas-lane ${d.active ? "is-active" : ""}`}><span>{tr(d.title)}</span><b>{tr(d.leg?.chain)}</b></div>;
-  const ports = <>{d.incoming && <Handle type="target" position={d.incoming} />}{d.outgoing && <Handle type="source" position={d.outgoing} />}</>;
+  const ports = <>{[Position.Top, Position.Bottom, Position.Left, Position.Right].map(position => <span key={position}><Handle id={`in-${position}`} type="target" position={position} /><Handle id={`out-${position}`} type="source" position={position} /></span>)}</>;
   if (d.kind === "bridge" && d.route) return <div className={`atlas-node atlas-protocol ${d.active ? "is-active" : ""}`}>
     {tr(ports)}
     <div className="atlas-node-role"><span><b>{tr(String(d.step).padStart(2, "0"))}</b>{tr(" 크로스체인 브릿지")}</span><GitFork size={15} /></div>
@@ -122,9 +121,9 @@ function MapTools({ fitKey, overview, motion, container, nodes }: { fitKey: stri
   </>;
 }
 
-export default function Graph({ routes, selectedId, onSelect, onFocus, all, connections = [], addressPaths, targetAddress, targetChain }: {
-  routes: BridgeRoute[]; selectedId?: string; onSelect: (id: string) => void; onFocus: () => void;
-  all: boolean; connections?: RouteConnection[]; addressPaths?: AddressPath[]; targetAddress?: string; targetChain?: { id: string; name: string };
+export default function Graph({ entries, selectedId, onSelect, onFocus, all, connections = [] }: {
+  entries: MapEntry[]; selectedId?: string; onSelect: (id: string) => void; onFocus: () => void;
+  all: boolean; connections?: MapConnection[];
 }) {
   const { t: tr } = useI18n();
   const root = useRef<HTMLDivElement>(null);
@@ -132,7 +131,6 @@ export default function Graph({ routes, selectedId, onSelect, onFocus, all, conn
   const expandButton = useRef<HTMLButtonElement>(null);
   const [expanded, setExpanded] = useState(false);
   const [dimensions, setDimensions] = useState({ width: 600, height: 530 });
-  const [pathId, setPathId] = useState("");
   const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
     const media = matchMedia("(prefers-reduced-motion: reduce)");
@@ -164,52 +162,32 @@ export default function Graph({ routes, selectedId, onSelect, onFocus, all, conn
     document.addEventListener("keydown", keyboard);
     return () => { document.body.style.overflow = overflow; document.removeEventListener("keydown", keyboard); previous?.focus(); };
   }, [expanded]);
-  const entries = useMemo<RouteEntry[]>(() => {
-    const fromRoute = (route: BridgeRoute, path?: AddressPath): RouteEntry => {
-      const last = stepsOf(path).at(-1);
-      const destination = last?.type === "bridge" ? last.route.destination : last?.type === "transfer" ? { ...last.transfer, address: last.transfer.to } : route.destination;
-      return { id: path?.id || route.id, selectionId: path?.id || route.id, route, path, source: route.source, destination, label: route.bridge };
-    };
-    const bridged = routes.flatMap(route => {
-      const paths = addressPaths?.filter(p => p.status === "connected" && p.bridgeRouteId === route.id);
-      return paths ? paths.map(path => fromRoute(route, path)) : [fromRoute(route)];
-    });
-    const ordinary = (addressPaths || []).filter(p => p.status === "connected" && !p.bridgeRouteId && p.source).map(path => {
-      const last = stepsOf(path).at(-1);
-      const destination = last?.type === "bridge" ? last.route.destination : last?.type === "transfer" ? { ...last.transfer, address: last.transfer.to } : path.source!;
-      const bridges = stepsOf(path).filter(s => s.type === "bridge").length;
-      return { id: path.id, selectionId: path.id, path, source: path.source!, destination, label: bridges ? `송금  /  브릿지 ${bridges}개` : "일반 송금" };
-    });
-    return [...bridged, ...ordinary];
-  }, [routes, addressPaths]);
-  const active = entries.find(e => e.id === pathId && e.selectionId === selectedId) || entries.find(e => e.selectionId === selectedId) || entries.find(e => e.route?.id === selectedId) || entries[0];
+  const active = entries.find(e => e.id === selectedId) || entries.find(e => e.route?.id === selectedId) || entries[0];
   const activeIndex = entries.findIndex(e => e.id === active?.id);
-  const choose = (entry?: RouteEntry) => { if (entry) { setPathId(entry.id); onSelect(entry.selectionId); onFocus(); } };
-  // Keep the selected path visible even when it falls beyond the overview's display cap.
-  const visible = all ? [...entries.slice(0, 12)] : active ? [active] : [];
-  if (all && active && !visible.some(e => e.id === active.id)) visible[visible.length - 1] = active;
+  const choose = (entry?: MapEntry) => { if (entry) { onSelect(entry.id); onFocus(); } };
+  const visible = all ? entries : active ? [active] : [];
   const columns = dimensions.width < 760 ? 2 : dimensions.width < 1200 ? 3 : 6;
   const { nodes, edges } = useMemo(() => {
     const nodes: FlowNodeType[] = [], edges: Edge[] = [];
     let laneY = 0;
-    const endpoints = new Map<string, { source: string; destination: string }>();
     const makeEdge = (id: string, source: string, target: string, label: string, tone = "bridge", pending = false) => {
-      const color = tone === "transfer" ? "var(--map-transfer)" : tone === "unresolved" ? "var(--map-unresolved)" : "var(--map-bridge)";
-      edges.push({ id, source, target, type: "atlas", label, data: { tone }, animated: pending && !reducedMotion,
+      const color = tone === "transfer" ? "var(--map-transfer)" : tone === "unresolved" ? "var(--map-unresolved)" : tone === "connection" ? "var(--map-connection)" : "var(--map-bridge)";
+      const from = nodes.find(n => n.id === source), to = nodes.find(n => n.id === target);
+      if (!from || !to) return;
+      const direction = (a: FlowNodeType, b: FlowNodeType) => a.position.y < b.position.y ? Position.Bottom : a.position.y > b.position.y ? Position.Top : a.position.x < b.position.x ? Position.Right : Position.Left;
+      edges.push({ id, source, target, sourceHandle: `out-${direction(from, to)}`, targetHandle: `in-${direction(to, from)}`, type: "atlas", label, data: { tone }, animated: pending && !reducedMotion,
         style: { stroke: color, strokeWidth: 1.8, strokeDasharray: tone === "unresolved" || tone === "connection" ? "5 5" : undefined },
         markerEnd: { type: MarkerType.ArrowClosed, color, width: 15, height: 15 } });
     };
     visible.forEach(entry => {
       const { route, path, id: prefix } = entry;
-      const steps = stepsOf(path);
+      const steps = entry.steps;
       const stages: FlowData[] = [{ kind: "source", leg: entry.source, route }];
-      if (route) stages.push({ kind: "bridge", route }, { kind: "destination", leg: route.destination, route });
       for (const step of steps) {
         if (step.type === "bridge") stages.push({ kind: "bridge", route: step.route }, { kind: "destination", leg: step.route.destination, route: step.route });
         else stages.push({ kind: "transfer", route, leg: { ...step.transfer, address: step.transfer.to, receiptVerified: step.transfer.evidence.kind === "event" } });
       }
       if (path?.status === "connected") stages[stages.length - 1].target = true;
-      if (path?.status === "unresolved" && targetAddress) stages.push({ kind: "transfer", route, target: true, ghost: true, leg: { chain: targetChain?.name || entry.destination.chain, chainId: targetChain?.id || entry.destination.chainId, address: targetAddress } });
       const cols = Math.ceil(stages.length / Math.ceil(stages.length / columns));
       const points = stages.map((_, i) => ({ x: (Math.floor(i / cols) % 2 ? cols - 1 - i % cols : i % cols) * 346, y: Math.floor(i / cols) * 276 + laneY + (all ? 52 : 0) }));
       if (all) nodes.push({ id: `${prefix}:lane`, type: "atlas", position: { x: 0, y: laneY }, data: { kind: "lane", route, leg: { chain: `${entry.source.chain} → ${entry.destination.chain}` }, title: `경로 ${String(entries.indexOf(entry) + 1).padStart(2, "0")}`, active: active?.id === entry.id }, selectable: false, focusable: false, style: { width: cols * 346 - 100 } });
@@ -227,15 +205,15 @@ export default function Graph({ routes, selectedId, onSelect, onFocus, all, conn
             unknown ? "unresolved" : bridgeEdge ? "bridge" : "transfer", stage.route?.status === "pending" && bridgeEdge);
         }
       });
-      if (route) endpoints.set(route.id, { source: `${prefix}:0`, destination: `${prefix}:2` });
       laneY += Math.ceil(stages.length / cols) * 276 + (all ? 90 : 0);
     });
-    if (!addressPaths) for (const connection of connections) {
-      const from = endpoints.get(connection.fromRouteId), to = endpoints.get(connection.toRouteId);
-      if (from && to) makeEdge(`junction:${connection.fromRouteId}:${connection.toRouteId}`, from.destination, to.source, "동일 거래", "connection");
+    for (const connection of connections) {
+      makeEdge(`junction:${connection.fromEntryId}:${connection.fromStage}:${connection.toEntryId}`,
+        `${connection.fromEntryId}:${connection.fromStage}`, `${connection.toEntryId}:0`,
+        connection.kind === "shared-transaction" ? "동일 거래" : "주소 연결", "connection");
     }
     return { nodes, edges };
-  }, [entries, active?.id, all, columns, connections, addressPaths, targetAddress, targetChain, reducedMotion, tr]);
+  }, [entries, active?.id, all, columns, connections, reducedMotion, tr]);
   const fitKey = `${nodes.map(n => n.id).join("|")}:${columns}:${dimensions.width}:${dimensions.height}:${expanded}`;
   return <div ref={root} className={`atlas-explorer ${expanded ? "is-expanded" : ""}`} role={expanded ? "dialog" : undefined} aria-modal={expanded ? true : undefined} aria-label={tr(expanded ? "자금 이동 경로 확대 보기" : "자금 이동 경로 탐색")}>
     <div className="atlas-map-heading">
@@ -253,13 +231,13 @@ export default function Graph({ routes, selectedId, onSelect, onFocus, all, conn
       <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} edgeTypes={edgeTypes}
         onNodeClick={(_, node) => { if (all) choose(entries.find(e => node.id.startsWith(`${e.id}:`))); }}
         minZoom={.05} maxZoom={2}
-        nodesDraggable={false} nodesConnectable={false} elementsSelectable={false}
+        nodesDraggable={false} nodesConnectable={false} elementsSelectable={false} onlyRenderVisibleElements
         zoomOnDoubleClick={false} zoomOnScroll={false} panOnScroll preventScrolling={false}>
         <Background variant={BackgroundVariant.Dots} gap={24} size={1} color="var(--dot)" />
         <MapTools fitKey={fitKey} container={surface} nodes={nodes} overview={all && visible.length > 1} motion={reducedMotion ? 0 : 280} />
       </ReactFlow>
     </div>
-    <div className="atlas-map-caption"><span><i />{tr(all ? `최대 12개 경로 표시  /  전체 ${entries.length}개` : `${nodes.length}개 단계  /  ${(active?.route?.evidence.length || 0) + stepsOf(active?.path).reduce((n, s) => n + (s.type === "bridge" ? s.route.evidence.length : 1), 0)}개 연결 근거`)}</span></div>
+    <div className="atlas-map-caption"><span><i />{tr(all ? `경로 ${entries.length}개 / 연결 ${edges.filter(e => e.data?.tone === "connection").length}개` : `${nodes.length}개 단계  /  ${(active?.steps || []).reduce((n, s) => n + (s.type === "bridge" ? s.route.evidence.length : 1), 0)}개 연결 근거`)}</span></div>
     {active?.path?.reason && !all && <p className="atlas-path-note"><CircleHelp size={13} />{tr(active.path.reason)}</p>}
   </div>;
 }

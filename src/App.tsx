@@ -1,6 +1,6 @@
 import { useI18n, LanguageToggle } from "./i18n";
 import { ThemeToggle } from "./theme";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
   ArrowDown,
   Plus,
@@ -39,6 +39,7 @@ import type {
   InvestigationRequest,
 } from "../shared/types";
 import Graph from "./Graph";
+import { appendMapSearch, buildTraceMap, type MapSearch } from "./trace-map";
 import { short, amountLabel } from "./format";
 import { requestJson } from "./api";
 import { InvestigationForm, InvestigationSummary } from "./Investigation";
@@ -285,8 +286,9 @@ function Diagnostics({ items }: { items: Diagnostic[] }) {
     </div>
   );
 }
-function download(result: TraceResult) {
-  const blob = new Blob([JSON.stringify(result, null, 2)], {
+function download(result: TraceResult, searches: MapSearch[]) {
+  const data = searches.length > 1 ? { version: 1, searches, map: buildTraceMap(searches) } : { ...result, map: buildTraceMap(searches) };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
     type: "application/json",
   });
   const a = document.createElement("a");
@@ -308,6 +310,8 @@ export default function App() {
   const [days, setDays] = useState(30);
   const [page, setPage] = useState(1);
   const [result, setResult] = useState<TraceResult>();
+  const [mapSearches, setMapSearches] = useState<MapSearch[]>([]);
+  const traceMap = useMemo(() => buildTraceMap(mapSearches), [mapSearches]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selected, setSelected] = useState("");
@@ -409,27 +413,24 @@ export default function App() {
     setPage(nextPage);
     setView("trace");
     setSearchExpanded(false);
-    setResult(undefined);
-    setSelected("");
+    const payload = investigation || { query: q.trim(), chainId: chain || undefined, kind: queryKind, days, page: nextPage, limit: 20 };
+    const searchKey = JSON.stringify(payload);
     try {
       const data = await requestJson<TraceResult>(investigation ? "/api/investigate" : "/api/trace", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(investigation || {
-          query: q.trim(),
-          chainId: chain || undefined,
-          kind: queryKind,
-          days,
-          page: nextPage,
-          limit: 20,
-        }),
+        body: JSON.stringify(payload),
         signal: abort.signal,
       });
       if (controller.current !== abort || abort.signal.aborted) return;
+      const searches = appendMapSearch(mapSearches, { key: searchKey, result: data });
+      const map = buildTraceMap(searches);
+      setMapSearches(searches);
       setResult(data);
       setSearchExpanded(false);
-      setAllGraph(investigation?.mode === "batch");
-      setSelected(data.investigation?.addressPaths?.find(p => p.status === "connected")?.id || data.investigation?.addressPaths?.[0]?.id || data.routes[0]?.id || "");
+      setAllGraph(searches.length > 1 || investigation?.mode === "batch");
+      setSelected(map.entries.find(entry => entry.searchKeys.includes(searchKey))?.id || map.entries[0]?.id || "");
+      if (mapSearches.length && !map.entries.some(entry => entry.searchKeys.includes(searchKey))) setToast("새 경로를 찾지 못했습니다. 기존 맵을 유지합니다.");
       setFilter("all");
       setProtocolFilter("all");
       const saved = [
@@ -437,7 +438,7 @@ export default function App() {
           query: q.trim(),
           chainId: chain || undefined,
           at: new Date().toISOString(),
-          count: data.routes.length,
+          count: data.investigation?.addressPaths?.length ?? data.routes.length + (data.transfers?.length || 0),
           request: data.investigation?.request || investigation,
         },
         ...history.filter((h) => h.query !== q.trim()),
@@ -463,17 +464,30 @@ export default function App() {
     setView(v);
     setSearchExpanded(false);
   };
-  const routes = result?.routes || [];
-  const filtered = routes.filter(
-    (r) =>
-      (filter === "all" || r.status === filter) &&
-      (protocolFilter === "all" || r.protocol === protocolFilter),
-  );
-  const selectedPath = result?.investigation?.addressPaths?.find(p => p.id === selected);
-  const current = selectedPath && !selectedPath.bridgeRouteId ? undefined : filtered.find(r => r.id === (selectedPath?.bridgeRouteId || selected)) || filtered[0];
-  const matchedChains = new Set(
-    [...routes.flatMap(r => [r.source.chainId, r.destination.chainId]), ...(result?.investigation?.addressPaths || []).flatMap(p => [p.source?.chainId, ...p.transfers.map(t => t.chainId), ...(p.steps || []).flatMap(s => s.type === "bridge" ? [s.route.source.chainId, s.route.destination.chainId] : [])])].filter(Boolean),
-  );
+  function openSearch(reset = false) {
+    if (reset) {
+      controller.current?.abort(); controller.current = null;
+      setLoading(false); setMapSearches([]); setResult(undefined); setSelected("");
+    }
+    focusSearch.current = true;
+    setError(""); setQuery(""); setChainId(""); setKind("auto"); setSearchMode("single");
+    setInvestigationDraft(undefined); setShowOptions(false); setSearchExpanded(!reset);
+  }
+  function selectSearch(search: MapSearch) {
+    const input = JSON.parse(search.key);
+    setResult(search.result); setSearchMode(input.mode || "single");
+    setInvestigationDraft(input.mode ? search.result.investigation?.request || input : undefined);
+    setQuery(search.result.query); setChainId(input.chainId || ""); setKind(input.kind || "auto");
+    setDays(input.days || 30); setPage(input.page || 1); setSearchExpanded(false);
+    setSelected(traceMap.entries.find(entry => entry.searchKeys.includes(search.key))?.id || "");
+    setFilter("all"); setProtocolFilter("all");
+  }
+  const routes = traceMap.routes;
+  const filtered = useMemo(() => routes.filter(r => (filter === "all" || r.status === filter) && (protocolFilter === "all" || r.protocol === protocolFilter)), [routes, filter, protocolFilter]);
+  const mapEntries = useMemo(() => traceMap.entries.filter(entry => entry.steps.filter(step => step.type === "bridge").every(step => filtered.some(route => route.id === step.route.id))), [traceMap.entries, filtered]);
+  const selectedEntry = mapEntries.find(entry => entry.id === selected || entry.path?.id === selected || entry.steps.some(step => step.type === "bridge" && step.route.id === selected)) || mapEntries[0];
+  const current = filtered.find(route => route.id === selected) || selectedEntry?.route;
+  const matchedChains = new Set(traceMap.entries.flatMap(entry => [entry.source.chainId, ...entry.steps.map(step => step.type === "bridge" ? step.route.destination.chainId : step.transfer.chainId)]).filter(Boolean));
   const navItems = [
     { id: "trace", label: "트랜잭션 추적", icon: Network },
     { id: "history", label: "조회 기록", icon: History },
@@ -499,7 +513,8 @@ export default function App() {
                   <Search size={17} /><code title={result.query}>{result.query}</code><CopyButton text={result.query} />
                   <div className="recall-actions">
                     <button className="quiet-button" type="button" aria-expanded={searchExpanded} onClick={() => setSearchExpanded(!searchExpanded)}><Settings2 size={14} />{tr("검색 수정")}</button>
-                    <button className="quiet-button new-search" type="button" onClick={() => { focusSearch.current = true; setResult(undefined); setError(""); setQuery(""); setChainId(""); setKind("auto"); setSearchMode("single"); setInvestigationDraft(undefined); setShowOptions(false); setSearchExpanded(false); }}><Plus size={15} />{tr("새 검색")}</button>
+                    <button className="quiet-button new-search" type="button" disabled={loading} onClick={() => openSearch()}><Plus size={15} />{tr("맵에 추가")}</button>
+                    <button className="quiet-button" type="button" onClick={() => openSearch(true)}>{tr("새 맵")}</button>
                   </div>
                 </div>}
               <section className="search-panel" hidden={!!result && !searchExpanded}>
@@ -632,13 +647,21 @@ export default function App() {
               )}
               {result && <div className="result-overview">
                 <div className="overview-stats">
-                  <span><strong>{result.investigation?.addressPaths?.filter(p => p.status === "connected").length ?? routes.length}</strong>{tr("연결된 경로")}</span>
+                  <span><strong>{traceMap.entries.length}</strong>{tr("연결된 경로")}</span>
                   <span><strong>{matchedChains.size}</strong>{tr("관련 체인")}</span>
-                  <span className="arrival-stat"><CheckCircle2 size={13} /><strong>{result.investigation?.addressPaths?.filter(p => p.status === "connected").length ?? routes.filter(r => r.status === "delivered").length}</strong>{tr("도착 확인")}</span>
+                  <span className="arrival-stat"><CheckCircle2 size={13} /><strong>{traceMap.entries.filter(entry => entry.path || !entry.route || entry.route.status === "delivered").length}</strong>{tr("도착 확인")}</span>
                 </div>
-                <button className="quiet-button" onClick={() => download(result)}><ArrowDownToLine size={14} />{tr("JSON 내보내기")}</button>
+                <button className="quiet-button" onClick={() => download(result, mapSearches)}><ArrowDownToLine size={14} />{tr("JSON 내보내기")}</button>
               </div>}
-              {loading ? (
+              {result && mapSearches.length > 1 && <div className="map-searches" aria-label={tr("맵에 포함된 검색")}>
+                <span>{tr(`검색 ${mapSearches.length}개`)}</span>
+                {mapSearches.map((search, index) => <button type="button" key={search.key} aria-pressed={result === search.result} title={search.result.query}
+                  onClick={() => selectSearch(search)}>
+                  <b>{index + 1}</b><code>{short(search.result.query, 8)}</code>
+                </button>)}
+              </div>}
+              {loading && result && <div className="map-loading" role="status"><LoaderCircle size={15} className="spin" />{tr("맵에 추가하는 중")} <small>{tr(`${elapsed}초`)}</small><button type="button" onClick={() => { controller.current?.abort(); setLoading(false); }}>{tr("조회 취소")}</button></div>}
+              {loading && !result ? (
                 <div className="loading-panel">
                   <div className="loading-orbit">
                     <Network size={34} />
@@ -659,7 +682,7 @@ export default function App() {
               ) : result ? (
                 <>
                   <InvestigationSummary result={result} onTrace={(hash, chain) => void search(hash, chain, 1, "auto")}
-                    onSelect={id => { setSelected(id); setFilter("all"); setProtocolFilter("all"); setAllGraph(!result.investigation?.addressPaths); }} />
+                    onSelect={id => { setSelected(traceMap.entries.find(entry => entry.path?.id === id || entry.route?.id === id)?.id || id); setFilter("all"); setProtocolFilter("all"); setAllGraph(mapSearches.length > 1); }} />
                   <div className={`result-layout ${!current ? "without-evidence" : ""}`}>
                     <div className="result-main">
                       <section className="graph-panel route-map-panel">
@@ -688,60 +711,25 @@ export default function App() {
                           </button></div>
                         </div>
                         <div className="graph-canvas">
-                          {filtered.length || result.investigation?.addressPaths?.some(p => !p.bridgeRouteId) ? (
+                          {mapEntries.length ? (
                             graphTab === "graph" ? (
                               <Graph
-                                routes={filtered}
-                                selectedId={selected || current?.id}
+                                entries={mapEntries}
+                                selectedId={selectedEntry?.id}
                                 all={allGraph}
                                 onSelect={setSelected}
-                                onFocus={() => setAllGraph(false)}
-                                connections={result.investigation?.connections}
-                                addressPaths={result.investigation?.addressPaths}
-                                targetAddress={result.investigation?.request.mode === "address-pair" ? result.investigation.request.destinationAddress : undefined}
-                                targetChain={result.investigation?.request.mode === "address-pair" ? config?.chains.find(c => c.id === (result.investigation!.request as Extract<InvestigationRequest, { mode: "address-pair" }>).destinationChainId) : undefined}
+                                onFocus={() => { if (mapSearches.length < 2) setAllGraph(false); }}
+                                connections={traceMap.connections}
                               />
                             ) : (
                               <div className="timeline-view">
-                                {result.investigation?.addressPaths ? result.investigation.addressPaths.filter(p => allGraph || (p.id === selected || p.bridgeRouteId === selected)).map(path => {
-                                  const first = routes.find(r => r.id === path.bridgeRouteId);
-                                  const steps = [...(first ? [{ type: "bridge" as const, route: first }] : []), ...(path.steps || path.transfers.map(transfer => ({ type: "transfer" as const, transfer })))];
-                                  return <div className="timeline-route" key={path.id}><strong>{tr(path.status === "connected" ? "B 연결 경로" : "B 미연결 경로")}</strong>{steps.map((step, index) => <div key={index}><span className="timeline-circle" /><div><b>{tr(step.type === "bridge" ? `${step.route.bridge}  /  ${step.route.source.chain} → ${step.route.destination.chain}` : `${step.transfer.chain}  /  일반 송금`)}</b><code>{tr(step.type === "bridge" ? `${step.route.source.txHash} → ${step.route.destination.txHash || "미확인"}` : step.transfer.txHash)}</code><small>{tr(fmtDate(step.type === "bridge" ? step.route.source.timestamp : step.transfer.timestamp, locale))}</small></div></div>)}</div>;
-                                }) : (allGraph
-                                  ? filtered
-                                  : current
-                                    ? [current]
-                                    : []
-                                ).map((r) => (
-                                  <div className="timeline-route" key={r.id}>
-                                    <strong>{tr(r.bridge)}</strong>
-                                    <div>
-                                      <span className="timeline-circle" />
-                                      <div>
-                                        <b>{tr(r.source.chain)}{tr(" / 출발")}</b>
-                                        <code>
-                                          {tr(r.source.txHash || "미확인")}
-                                        </code>
-                                        <small>
-                                          {tr(fmtDate(r.source.timestamp, locale))}
-                                        </small>
-                                      </div>
-                                    </div>
-                                    <div>
-                                      <span className="timeline-circle end" />
-                                      <div>
-                                        <b>{tr(r.destination.chain)}{tr(" / 도착")}</b>
-                                        <code>
-                                          {tr(r.destination.txHash || "미확인")}
-                                        </code>
-                                        <small>
-                                          {tr(fmtDate(r.destination.timestamp, locale))}
-                                        </small>
-                                      </div>
-                                      <Status value={r.status} />
-                                    </div>
-                                  </div>
-                                ))}
+                                {mapEntries.filter(entry => allGraph || entry.id === selectedEntry?.id).map(entry => <div className="timeline-route" key={entry.id}>
+                                  <strong>{tr(entry.label)}</strong>{entry.steps.map((step, index) => <div key={index}><span className="timeline-circle" /><div>
+                                    <b>{tr(step.type === "bridge" ? `${step.route.bridge}  /  ${step.route.source.chain} → ${step.route.destination.chain}` : `${step.transfer.chain}  /  일반 송금`)}</b>
+                                    <code>{step.type === "bridge" ? `${step.route.source.txHash} → ${step.route.destination.txHash || tr("미확인")}` : step.transfer.txHash}</code>
+                                    <small>{fmtDate(step.type === "bridge" ? step.route.source.timestamp : step.transfer.timestamp, locale)}</small>
+                                  </div></div>)}
+                                </div>)}
                               </div>
                             )
                           ) : (
@@ -761,8 +749,8 @@ export default function App() {
                             <i className="legend-line" />{tr(" 확인된 거래 연결 ")}</span>
                           <span>
                             <i className="legend-line dashed" />{tr(" 반대편 거래 미확인 ")}</span>
-                          {!!result.investigation?.connections.length && <span><i className="legend-line connection" />{tr(" 동일 거래 접점")}</span>}
-                          {result.investigation?.addressPaths && <span><i className="legend-line transfer" />{tr(" 일반 송금 / 주소 연결")}</span>}
+                          {!!traceMap.connections.length && <span><i className="legend-line connection" />{tr(" 거래 / 주소 접점")}</span>}
+                          {traceMap.entries.some(entry => entry.steps.some(step => step.type === "transfer")) && <span><i className="legend-line transfer" />{tr(" 일반 송금 / 주소 연결")}</span>}
                         </div>
                       </section>
                       {!!routes.length && <section className="route-table-panel">
