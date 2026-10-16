@@ -185,6 +185,14 @@ export async function investigate(raw: unknown, lookup: TraceFunction = trace, t
     return { routes: combineObservations(found.flatMap(r => r.routes)), diagnostics: found.flatMap(r => r.diagnostics.map(d => ({ ...d, provider: `${address.slice(0, 10)}… · ${d.provider}` }))), warnings: found.flatMap(r => r.warnings), truncated: scan.truncated };
   }) : undefined;
   if (addressSearch && (initial?.truncated || searchExpired())) addressSearch.scope.truncated = true;
+  // Source-wallet observations are search candidates, not A-to-B results. Project
+  // every result surface from paths that actually reached B, including its chain.
+  // Keep diagnostics and search limits even when no complete path was found.
+  const addressPaths = addressSearch?.paths.filter(path => path.status === "connected");
+  if (addressPaths) {
+    const connectedRoots = new Set(addressPaths.map(path => path.bridgeRouteId));
+    routes = routes.filter(route => connectedRoots.has(route.id));
+  }
   const warnings = [...new Set(successes.flatMap(r => r.warnings))];
   if (searchExpired()) warnings.push(SEARCH_TIMEOUT_MESSAGE);
   warnings.push("연결 거래 목록에는 관측한 브릿지 출발·도착 거래와 주소 경로에서 확인한 일반 송금이 포함됩니다. 동일 체인·동일 거래 접점도 동일 자금의 재사용을 증명하지는 않습니다.");
@@ -194,9 +202,9 @@ export async function investigate(raw: unknown, lookup: TraceFunction = trace, t
     if (missingTime) warnings.push(`기간을 검증할 출발 시간이 없는 주소 일치 경로 ${missingTime}개를 제외했습니다.`);
   }
   warnings.push(...(addressSearch?.warnings || []));
-  const allBridges = [...routes, ...(addressSearch?.paths || []).flatMap(p => p.steps?.flatMap(s => s.type === "bridge" ? [s.route] : []) || [])];
+  const allBridges = [...routes, ...(addressPaths || []).flatMap(p => p.steps?.flatMap(s => s.type === "bridge" ? [s.route] : []) || [])];
   const transactions = connectedTransactions(allBridges);
-  for (const path of addressSearch?.paths || []) for (const transfer of path.transfers) {
+  for (const path of addressPaths || []) for (const transfer of path.transfers) {
     const existing = transactions.find(t => t.chainId === transfer.chainId && hashKey(t.txHash) === hashKey(transfer.txHash));
     if (existing) {
       if (!existing.roles.includes("transfer")) existing.roles.push("transfer");
@@ -219,7 +227,7 @@ export async function investigate(raw: unknown, lookup: TraceFunction = trace, t
       request, inputs: results.map(r => r.report), observedRouteCount: observed.length,
       excludedRouteCount: observed.length - routes.length,
       connections: connectRoutes(allBridges), transactions,
-      addressPaths: addressSearch?.paths, pathSearch: addressSearch?.scope,
+      addressPaths, pathSearch: addressSearch?.scope,
     },
   };
 }

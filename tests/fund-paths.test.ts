@@ -104,7 +104,9 @@ test("history failures are partial, and no EVM chain is silently guessed", async
 });
 
 test("API ordinary-only mode skips all bridge lookups and exports transfer hashes and the exact window", async () => {
-  const out = await investigate({ ...request, maxBridges: 0 }, async () => { throw new Error("must not run"); }, load([transfer("one", A, C, 10), transfer("two", C, B, 20)]));
+  const out = await investigate({ ...request, maxBridges: 0 }, async () => { throw new Error("must not run"); }, load([
+    transfer("one", A, C, 10), transfer("two", C, B, 20), transfer("dead-end", A, F, 15), transfer("after-target", B, E, 30),
+  ]));
   assert.equal(out.routes.length, 0);
   assert.equal(out.investigation?.addressPaths?.[0].status, "connected");
   assert.deepEqual(out.investigation?.transactions.map(t => t.txHash), ["one", "two"]);
@@ -113,9 +115,14 @@ test("API ordinary-only mode skips all bridge lookups and exports transfer hashe
 
 test("API follows intermediate bridge to a different final chain and exports both bridge legs", async () => {
   const first = bridge("first", A, C, 10), second = bridge("second", D, E, 30, "8453", "solana"); second.source.amount = "7";
-  const events = [transfer("middle", C, D, 20, "8453", "native", "7"), transfer("last", E, B, 40, "solana", "native", "6")];
-  const out = await investigate({ ...request, destinationChainId: "solana" }, async (raw: any): Promise<TraceResult> => ({ query: raw.query, kind: "address", routes: raw.query === A ? [first] : raw.query === D ? [second] : [], candidates: [], diagnostics: [], warnings: [], fetchedAt: at(600), elapsedMs: 0, searchedChains: [] }), load(events));
+  const unrelated = bridge("unrelated", A, F, 15), detour = bridge("detour", D, F, 30, "8453", "solana"); detour.source.amount = "7";
+  const events = [transfer("middle", C, D, 20, "8453", "native", "7"), transfer("last", E, B, 40, "solana", "native", "6"),
+    transfer("dead-end", C, F, 20, "8453", "native", "7"), transfer("after-target", B, F, 50, "solana", "native", "5")];
+  const out = await investigate({ ...request, destinationChainId: "solana" }, async (raw: any): Promise<TraceResult> => ({ query: raw.query, kind: "address", routes: raw.query === A ? [first, unrelated] : raw.query === D ? [second, detour] : [], candidates: [], diagnostics: [], warnings: [], fetchedAt: at(600), elapsedMs: 0, searchedChains: [] }), load(events));
+  assert.deepEqual(out.routes.map(r => r.id), ["first"]);
+  assert.equal(out.investigation?.addressPaths?.length, 1);
   assert.equal(out.investigation?.addressPaths?.[0].status, "connected");
+  assert.deepEqual(out.investigation?.addressPaths?.[0].steps?.map(s => s.type === "bridge" ? s.route.id : s.transfer.id), ["middle", "second", "last"]);
   assert.deepEqual(out.investigation?.transactions.map(t => t.txHash).sort(), ["first-source", "first-dest", "second-source", "second-dest", "middle", "last"].sort());
 });
 

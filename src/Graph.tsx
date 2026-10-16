@@ -171,10 +171,10 @@ export default function Graph({ routes, selectedId, onSelect, onFocus, all, conn
       return { id: path?.id || route.id, selectionId: path?.id || route.id, route, path, source: route.source, destination, label: route.bridge };
     };
     const bridged = routes.flatMap(route => {
-      const paths = addressPaths?.filter(p => p.bridgeRouteId === route.id);
-      return paths?.length ? paths.map(path => fromRoute(route, path)) : [fromRoute(route)];
+      const paths = addressPaths?.filter(p => p.status === "connected" && p.bridgeRouteId === route.id);
+      return paths ? paths.map(path => fromRoute(route, path)) : [fromRoute(route)];
     });
-    const ordinary = (addressPaths || []).filter(p => !p.bridgeRouteId && p.source).map(path => {
+    const ordinary = (addressPaths || []).filter(p => p.status === "connected" && !p.bridgeRouteId && p.source).map(path => {
       const last = stepsOf(path).at(-1);
       const destination = last?.type === "bridge" ? last.route.destination : last?.type === "transfer" ? { ...last.transfer, address: last.transfer.to } : path.source!;
       const bridges = stepsOf(path).filter(s => s.type === "bridge").length;

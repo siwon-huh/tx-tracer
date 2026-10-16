@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import type { BridgeRoute, TraceResult } from "../shared/types";
 import { connectedTransactions, connectRoutes, investigate as runInvestigation, matchesAddressPair } from "../server/investigate";
+import unrelatedStargate from "./fixtures/unrelated-stargate-route.json";
 
 const investigate: typeof runInvestigation = (raw, lookup, transfers) => runInvestigation(raw, lookup, transfers || (async () => ({ transfers: [], diagnostics: [], warnings: [], truncated: false })));
 
@@ -81,10 +82,38 @@ test("address pair enforces direction, optional chain, time window and known tim
   const unknown = route("unknown"); delete unknown.source.timestamp;
   const noRecipient = route("noRecipient"); delete noRecipient.destination.address;
   const output = await investigate({ ...pair, destinationChainId: "8453" }, async (input: any) => result(input.query, [valid, reverse, wrongChain, old, unknown, noRecipient]));
-  assert.deepEqual(output.routes.map(r => r.id).sort(), ["noRecipient", "valid", "wrongChain"]);
-  assert.equal(output.investigation?.excludedRouteCount, 3);
-  assert.equal(output.investigation?.addressPaths?.find(p => p.bridgeRouteId === "noRecipient")?.status, "unresolved");
+  assert.deepEqual(output.routes.map(r => r.id), ["valid"]);
+  assert.equal(output.investigation?.excludedRouteCount, 5);
+  assert.deepEqual(output.investigation?.addressPaths?.map(p => [p.bridgeRouteId, p.status]), [["valid", "connected"]]);
+  assert.equal(output.investigation?.transactions.length, 2);
+  assert.ok(output.investigation?.transactions.every(t => t.routeIds.length === 1 && t.routeIds[0] === "valid"));
   assert.match(output.warnings.join(" "), /출발 시간이 없는.*1개/);
+});
+
+test("reported Stargate transaction is excluded without an onward path to B, including partial searches", async () => {
+  const observed = unrelatedStargate.route as BridgeRoute;
+  const lookup = async (input: any) => result(input.query, input.query === unrelatedStargate.request.sourceAddress ? [observed] : []);
+  for (const partial of [false, true]) {
+    const output = await investigate(unrelatedStargate.request, lookup, async () => ({
+      transfers: [], truncated: partial, warnings: partial ? ["history unavailable"] : [],
+      diagnostics: partial ? [{ provider: "fixture history", state: "error", count: 0, durationMs: 0, detail: "history unavailable" }] : [],
+    }));
+    assert.deepEqual(output.routes, []);
+    assert.deepEqual(output.investigation?.addressPaths, []);
+    assert.deepEqual(output.investigation?.transactions, []);
+    assert.deepEqual(output.investigation?.connections, []);
+    assert.equal(output.investigation?.observedRouteCount, 1);
+    assert.equal(output.investigation?.excludedRouteCount, 1);
+    if (partial) {
+      assert.equal(output.investigation?.pathSearch?.truncated, true);
+      assert.ok(output.diagnostics.some(d => d.state === "error"));
+      assert.ok(output.warnings.includes("history unavailable"));
+    }
+  }
+  // A transaction search has no target wallet, so the same route is still valid there.
+  const batch = await investigate({ mode: "batch", queries: [observed.source.txHash!] }, async (input: any) => result(input.query, [observed]));
+  assert.deepEqual(batch.routes.map(r => r.id), [observed.id]);
+  assert.equal(batch.investigation?.transactions.length, 2);
 });
 
 test("address matching preserves base58 case and accepts EVM checksum case", () => {

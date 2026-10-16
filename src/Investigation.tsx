@@ -132,7 +132,7 @@ export function InvestigationSummary({ result, onTrace, onSelect }: {
   const name = (id: string) => result.routes.find(r => r.id === id)?.bridge || id;
   return <section className="investigation-summary">
     <div className="section-toolbar"><h3>{tr(data.request.mode === "batch" ? "통합 조회" : "주소 간 조회")}</h3>
-      <span>{tr(data.addressPaths ? `B까지 연결 ${data.addressPaths.filter(p => p.status === "connected").length}개  /  미연결 ${data.addressPaths.filter(p => p.status === "unresolved").length}개` : `관측 경로 ${result.routes.length}개`)}{tr(" / 거래 ")}{tr(data.transactions.length)}{tr("개")}</span></div>
+      <span>{tr(data.addressPaths ? `B까지 연결 ${data.addressPaths.length}개` : `관측 경로 ${result.routes.length}개`)}{tr(" / 거래 ")}{tr(data.transactions.length)}{tr("개")}</span></div>
     {data.request.mode === "address-pair" && <p className="section-caption">{tr("주소 연결은 동일 자금의 이동을 보장하지 않습니다.")}{data.pathSearch?.truncated && <strong> {tr("일부 이력 미조회")}</strong>}</p>}
     {data.pathSearch?.startTime && <p className="section-caption">{tr("조회 기간: ")}{tr(new Date(data.pathSearch.startTime).toLocaleString(locale))}{tr(" ~ ")}{tr(new Date(data.pathSearch.endTime!).toLocaleString(locale))}{tr(" / 주소 ")}{tr(data.pathSearch.walletsScanned)}{tr("개 조회")}</p>}
     {!!data.inputs.length && <details className="investigation-inputs" open={data.inputs.some(i => i.state === "error" || i.state === "partial")}>

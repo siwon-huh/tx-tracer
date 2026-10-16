@@ -12,7 +12,7 @@ test('public UI and coverage copy has no prohibited separators in either languag
 });
 
 test('dynamic route, receipt and multi-hop descriptions translate their nested values', () => {
-  assert.equal(translateText('B까지 연결 2개 · 미연결 1개', 'en'), '2 connected to B / 1 unresolved');
+  assert.equal(translateText('B까지 연결 2개', 'en'), '2 connected to B');
   assert.equal(translateText('출발 receipt 성공 · block 18221489', 'en'), 'Source transaction successful / Block 18221489');
   assert.equal(translateText('후속 외부 호출 상태: NoExtCall. 자산 전달 상태와 별개입니다.', 'en'), 'Subsequent external call status: No subsequent call. This is separate from asset delivery status.');
   assert.equal(translateText('3분 29초', 'en'), '3m 29s');

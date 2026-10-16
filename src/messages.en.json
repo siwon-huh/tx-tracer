@@ -220,7 +220,7 @@
   "일부 실패": "Partial results",
   "통합 조회": "Combined search",
   "주소 간 조회": "Address-to-address search",
-  "B까지 연결 {0}개 / 미연결 {1}개": "{0} connected to B / {1} unresolved",
+  "B까지 연결 {0}개": "{0} connected to B",
   "관측 경로 {0}개": "{0} observed routes",
   "/ 거래": "/ Transactions",
   "개": " items",

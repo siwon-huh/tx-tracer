@@ -1,0 +1,123 @@
+{
+  "fetchedAt": "2026-10-16T16:24:27.956Z",
+  "request": {
+    "mode": "address-pair",
+    "sourceAddress": "0x1F3AB7468F3e51646B3AebBA26c6fb6302A02d55",
+    "destinationAddress": "0xC48109dEc9c4eaa3385e934CD7e5e5BFBF5D95eD",
+    "days": 365,
+    "pages": 5,
+    "maxHops": 3,
+    "maxBridges": 3,
+    "startTime": "2025-10-16T16:24:10.717Z",
+    "endTime": "2026-10-16T16:24:10.717Z"
+  },
+  "route": {
+    "id": "lifi:0x4e61c2607c5064e934bca28e117f0ae288e64a75ced81776bd06917efa80a78f:0x40c54ae91789b0c3d5b8e43a9480f2402c2073e8aa427320b13603d2f0d7f91d",
+    "bridge": "stargateV2Bus",
+    "protocol": "lifi",
+    "aggregator": "LI.FI",
+    "status": "delivered",
+    "source": {
+      "chainId": "1",
+      "txHash": "0x7f9140b54c23c661c00030eeb107da10d4ff5493b2ac8ce4ba176e9ba0e12d82",
+      "address": "0x1f3ab7468f3e51646b3aebba26c6fb6302a02d55",
+      "amount": "561.059407",
+      "symbol": "USDT",
+      "tokenAddress": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "timestamp": "2026-01-12T12:46:47.000Z",
+      "chain": "Ethereum Mainnet",
+      "explorerUrl": "https://etherscan.io/tx/0x7f9140b54c23c661c00030eeb107da10d4ff5493b2ac8ce4ba176e9ba0e12d82"
+    },
+    "destination": {
+      "chainId": "2741",
+      "txHash": "0x40c54ae91789b0c3d5b8e43a9480f2402c2073e8aa427320b13603d2f0d7f91d",
+      "address": "0xd358018701b9c33b8a975a51f7761f757f69d729",
+      "amount": "0.179118",
+      "symbol": "ETH",
+      "tokenAddress": "0x0000000000000000000000000000000000000000",
+      "timestamp": "2026-01-12T12:51:52.000Z",
+      "chain": "Abstract",
+      "explorerUrl": "https://abscan.org/tx/0x40c54ae91789b0c3d5b8e43a9480f2402c2073e8aa427320b13603d2f0d7f91d"
+    },
+    "confidence": "indexed",
+    "evidence": [
+      {
+        "provider": "LI.FI",
+        "kind": "indexer",
+        "url": "https://li.quest/v1/analytics/transfers?wallet=0x1F3AB7468F3e51646B3AebBA26c6fb6302A02d55&status=ALL&fromTimestamp=1760631850&toTimestamp=1792167850",
+        "description": "인덱서 상태: DONE / COMPLETED",
+        "fetchedAt": "2026-10-16T16:24:10.926Z",
+        "details": {
+          "tool": "stargateV2Bus",
+          "substatus": "COMPLETED",
+          "sendingSteps": [
+            {
+              "tool": "feeCollection",
+              "toolDetails": {
+                "key": "feeCollection",
+                "name": "Integrator Fee",
+                "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/protocols/feeCollection.svg"
+              },
+              "fromAmount": "561059407",
+              "fromToken": {
+                "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+                "chainId": 1,
+                "symbol": "USDT",
+                "decimals": 6,
+                "name": "USDT",
+                "coinKey": "USDT",
+                "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+                "priceUSD": "0.998702"
+              },
+              "toToken": {
+                "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+                "chainId": 1,
+                "symbol": "USDT",
+                "decimals": 6,
+                "name": "USDT",
+                "coinKey": "USDT",
+                "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+                "priceUSD": "0.998702"
+              },
+              "toAmount": "558254111"
+            },
+            {
+              "tool": "okx",
+              "toolDetails": {
+                "key": "okx",
+                "name": "OKX Dex Aggregator",
+                "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/okx.svg",
+                "webUrl": "https://www.okx.com/web3/dex-swap"
+              },
+              "fromAmount": "558254111",
+              "fromToken": {
+                "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+                "chainId": 1,
+                "symbol": "USDT",
+                "decimals": 6,
+                "name": "USDT",
+                "coinKey": "USDT",
+                "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+                "priceUSD": "0.998702"
+              },
+              "toToken": {
+                "address": "0x0000000000000000000000000000000000000000",
+                "chainId": 1,
+                "symbol": "ETH",
+                "decimals": 18,
+                "name": "ETH",
+                "coinKey": "ETH",
+                "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+                "priceUSD": "3114.78"
+              },
+              "toAmount": "179101884040643157",
+              "bridgedAmount": "179101884040643157"
+            }
+          ],
+          "receivingSteps": []
+        }
+      }
+    ],
+    "notes": []
+  }
+}
