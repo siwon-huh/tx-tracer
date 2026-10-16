@@ -1,0 +1,196 @@
+{
+  "route": {
+    "id": "debridge:0xa414aaf81d394cad7b0102f29d4e070e2779c81623947793a3a1ba300aeedc39",
+    "bridge": "deBridge DLN",
+    "protocol": "debridge",
+    "messageId": "0xa414aaf81d394cad7b0102f29d4e070e2779c81623947793a3a1ba300aeedc39",
+    "source": {
+      "chainId": "42161",
+      "txHash": "0xd5bb722200d946b964cae1c3cf57d5754e4bca8fa7b58b2bdbfa328c99dad330",
+      "address": "0x88cd2ae461e026cd228d54c1a2804d99afa6ebfa",
+      "amount": "342.7256",
+      "symbol": "USDC",
+      "tokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "timestamp": "2026-10-16T12:31:24.000Z",
+      "chain": "Arbitrum One",
+      "explorerUrl": "https://arbiscan.io/tx/0xd5bb722200d946b964cae1c3cf57d5754e4bca8fa7b58b2bdbfa328c99dad330"
+    },
+    "destination": {
+      "chainId": "solana",
+      "txHash": "3tYyWNjAkfi2Z39ABNYYrBkE26s2c3MnqGgNxCU7bAqwTAkWujLcH63VtB6nBMbomyLnLSmMZ4CdKsJbMTJgrzbS",
+      "address": "9sq2APNSuucW5kB3YGC1n1yn8cz3XqCvuMdrhXAgJMoM",
+      "amount": "3.202409907",
+      "symbol": "SOL",
+      "tokenAddress": "11111111111111111111111111111111",
+      "timestamp": "2026-10-16T12:31:26.000Z",
+      "chain": "Solana",
+      "explorerUrl": "https://solscan.io/tx/3tYyWNjAkfi2Z39ABNYYrBkE26s2c3MnqGgNxCU7bAqwTAkWujLcH63VtB6nBMbomyLnLSmMZ4CdKsJbMTJgrzbS"
+    },
+    "status": "delivered",
+    "confidence": "indexed",
+    "evidence": [
+      {
+        "provider": "deBridge DLN",
+        "kind": "indexer",
+        "url": "https://dln-api.debridge.finance/api/Orders/0xa414aaf81d394cad7b0102f29d4e070e2779c81623947793a3a1ba300aeedc39",
+        "description": "주문 상태: Fulfilled",
+        "fetchedAt": "2026-10-16T12:38:01.441Z",
+        "details": {
+          "state": "Fulfilled",
+          "externalCallState": "NoExtCall",
+          "sourceProtocolChainId": "42161",
+          "destinationProtocolChainId": "7565164"
+        }
+      }
+    ],
+    "notes": [
+      "후속 외부 호출 상태: NoExtCall. 자산 전달 상태와 별개입니다."
+    ]
+  },
+  "tx": {
+    "blockTime": 1792153965,
+    "meta": {
+      "computeUnitsConsumed": 450,
+      "costUnits": 1784,
+      "err": null,
+      "fee": 79934,
+      "innerInstructions": [],
+      "logMessages": [
+        "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+        "Program ComputeBudget111111111111111111111111111111 success",
+        "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+        "Program ComputeBudget111111111111111111111111111111 success",
+        "Program 11111111111111111111111111111111 invoke [1]",
+        "Program 11111111111111111111111111111111 success"
+      ],
+      "postBalances": [
+        13124869,
+        3196596302,
+        1,
+        1
+      ],
+      "postTokenBalances": [],
+      "preBalances": [
+        3209801105,
+        0,
+        1,
+        1
+      ],
+      "preTokenBalances": [],
+      "rewards": [],
+      "status": {
+        "Ok": null
+      }
+    },
+    "slot": 457638724,
+    "transaction": {
+      "message": {
+        "accountKeys": [
+          {
+            "pubkey": "9sq2APNSuucW5kB3YGC1n1yn8cz3XqCvuMdrhXAgJMoM",
+            "signer": true,
+            "source": "transaction",
+            "writable": true
+          },
+          {
+            "pubkey": "7vS1bSJCghP8jG78x8DCBnsEHeyk5U7AfoKpzwvP3xyr",
+            "signer": false,
+            "source": "transaction",
+            "writable": true
+          },
+          {
+            "pubkey": "11111111111111111111111111111111",
+            "signer": false,
+            "source": "transaction",
+            "writable": false
+          },
+          {
+            "pubkey": "ComputeBudget111111111111111111111111111111",
+            "signer": false,
+            "source": "transaction",
+            "writable": false
+          }
+        ],
+        "instructions": [
+          {
+            "accounts": [],
+            "data": "3Tvo4Px3GM2X",
+            "programId": "ComputeBudget111111111111111111111111111111",
+            "stackHeight": 1
+          },
+          {
+            "accounts": [],
+            "data": "FNCiLf",
+            "programId": "ComputeBudget111111111111111111111111111111",
+            "stackHeight": 1
+          },
+          {
+            "parsed": {
+              "info": {
+                "destination": "7vS1bSJCghP8jG78x8DCBnsEHeyk5U7AfoKpzwvP3xyr",
+                "lamports": 3196596302,
+                "source": "9sq2APNSuucW5kB3YGC1n1yn8cz3XqCvuMdrhXAgJMoM"
+              },
+              "type": "transfer"
+            },
+            "program": "system",
+            "programId": "11111111111111111111111111111111",
+            "stackHeight": 1
+          }
+        ],
+        "recentBlockhash": "7P2AwXco4iTbehtyiCP2u9gp5honSThanxDQbAoqWmt9"
+      },
+      "signatures": [
+        "61E4zaoZRZeuBsaz6XiBw59fU1aySaUPEyr7sFqjk8A1sY7dfV1j6aD78abPHV5CHNVqZvmfvSPgXyKcr1Tdyf57"
+      ]
+    },
+    "transactionIndex": 19,
+    "version": "legacy"
+  },
+  "hash": "61E4zaoZRZeuBsaz6XiBw59fU1aySaUPEyr7sFqjk8A1sY7dfV1j6aD78abPHV5CHNVqZvmfvSPgXyKcr1Tdyf57",
+  "transfers": [
+    {
+      "id": "solana:61E4zaoZRZeuBsaz6XiBw59fU1aySaUPEyr7sFqjk8A1sY7dfV1j6aD78abPHV5CHNVqZvmfvSPgXyKcr1Tdyf57:2000",
+      "chainId": "solana",
+      "chain": "Solana",
+      "txHash": "61E4zaoZRZeuBsaz6XiBw59fU1aySaUPEyr7sFqjk8A1sY7dfV1j6aD78abPHV5CHNVqZvmfvSPgXyKcr1Tdyf57",
+      "from": "9sq2APNSuucW5kB3YGC1n1yn8cz3XqCvuMdrhXAgJMoM",
+      "to": "7vS1bSJCghP8jG78x8DCBnsEHeyk5U7AfoKpzwvP3xyr",
+      "tokenAddress": "native",
+      "symbol": "SOL",
+      "rawAmount": "3196596302",
+      "decimals": 9,
+      "amount": "3.196596302",
+      "timestamp": "2026-10-16T12:32:45.000Z",
+      "blockNumber": 457638724,
+      "sequence": 2000,
+      "explorerUrl": "https://solscan.io/tx/61E4zaoZRZeuBsaz6XiBw59fU1aySaUPEyr7sFqjk8A1sY7dfV1j6aD78abPHV5CHNVqZvmfvSPgXyKcr1Tdyf57",
+      "evidence": {
+        "provider": "Solana RPC",
+        "kind": "event",
+        "description": "성공 거래의 transfer 명령 · 2000",
+        "url": "https://solscan.io/tx/61E4zaoZRZeuBsaz6XiBw59fU1aySaUPEyr7sFqjk8A1sY7dfV1j6aD78abPHV5CHNVqZvmfvSPgXyKcr1Tdyf57",
+        "fetchedAt": "2026-10-16T12:38:01.922Z",
+        "details": {
+          "endpoint": "https://solana-rpc.publicnode.com",
+          "slot": 457638724,
+          "instruction": {
+            "parsed": {
+              "info": {
+                "destination": "7vS1bSJCghP8jG78x8DCBnsEHeyk5U7AfoKpzwvP3xyr",
+                "lamports": 3196596302,
+                "source": "9sq2APNSuucW5kB3YGC1n1yn8cz3XqCvuMdrhXAgJMoM"
+              },
+              "type": "transfer"
+            },
+            "program": "system",
+            "programId": "11111111111111111111111111111111",
+            "stackHeight": 1
+          },
+          "sourceTokenAccount": "9sq2APNSuucW5kB3YGC1n1yn8cz3XqCvuMdrhXAgJMoM",
+          "destinationTokenAccount": "7vS1bSJCghP8jG78x8DCBnsEHeyk5U7AfoKpzwvP3xyr"
+        }
+      }
+    }
+  ]
+}

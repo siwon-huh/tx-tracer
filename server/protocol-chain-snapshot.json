@@ -1,0 +1,2076 @@
+{
+  "fetchedAt": "2026-10-15T14:57:39.422Z",
+  "sources": [
+    "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+    "https://dln.debridge.finance/v1.0/supported-chains-info",
+    "https://metadata.layerzero-api.com/v1/metadata/deployments",
+    "https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/chains.ts",
+    "https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/nativeChainIds.ts",
+    "https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/platforms.ts",
+    "https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/explorer.ts",
+    "https://raw.githubusercontent.com/wormhole-foundation/wormhole/main/sdk/js/src/utils/consts.ts"
+  ],
+  "chains": {
+    "0": {
+      "id": "0",
+      "name": "Swimmer",
+      "family": "evm",
+      "symbol": "GETH"
+    },
+    "1": {
+      "id": "1",
+      "name": "Ethereum",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://etherscan.io/tx/{hash}"
+    },
+    "10": {
+      "id": "10",
+      "name": "Optimism",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://optimistic.etherscan.io/tx/{hash}"
+    },
+    "14": {
+      "id": "14",
+      "name": "Flare",
+      "family": "evm",
+      "symbol": "FLR",
+      "txTemplate": "https://flarescan.com/tx/{hash}"
+    },
+    "25": {
+      "id": "25",
+      "name": "Cronosevm",
+      "family": "evm",
+      "symbol": "CRO",
+      "txTemplate": "https://explorer.cronos.org/tx/{hash}"
+    },
+    "30": {
+      "id": "30",
+      "name": "Rootstock",
+      "family": "evm",
+      "symbol": "RBTC",
+      "txTemplate": "https://explorer.rootstock.io/tx/{hash}"
+    },
+    "37": {
+      "id": "37",
+      "name": "XPLA Mainnet",
+      "family": "evm",
+      "symbol": "XPLA",
+      "txTemplate": "https://explorer.xpla.io/mainnet/tx/{hash}"
+    },
+    "40": {
+      "id": "40",
+      "name": "TelosEVM",
+      "family": "evm",
+      "symbol": "TLOS",
+      "txTemplate": "https://www.teloscan.io/tx/{hash}"
+    },
+    "50": {
+      "id": "50",
+      "name": "Xdc",
+      "family": "evm",
+      "symbol": "XDC",
+      "txTemplate": "https://xdcscan.com/tx/{hash}"
+    },
+    "56": {
+      "id": "56",
+      "name": "Bsc",
+      "family": "evm",
+      "symbol": "BNB",
+      "txTemplate": "https://bscscan.com/tx/{hash}"
+    },
+    "66": {
+      "id": "66",
+      "name": "OKXChain Mainnet",
+      "family": "evm",
+      "symbol": "OKT",
+      "txTemplate": "https://www.oklink.com/en/oktc/tx/{hash}"
+    },
+    "81": {
+      "id": "81",
+      "name": "Joc",
+      "family": "evm",
+      "symbol": "JOC",
+      "txTemplate": "https://mainnet.japanopenchain.org/tx/{hash}"
+    },
+    "82": {
+      "id": "82",
+      "name": "Meter Mainnet",
+      "family": "evm",
+      "symbol": "MTR",
+      "txTemplate": "https://scan.meter.io/tx/{hash}"
+    },
+    "88": {
+      "id": "88",
+      "name": "Viction",
+      "family": "evm",
+      "symbol": "TOMO",
+      "txTemplate": "https://tomoscan.io/tx/{hash}"
+    },
+    "100": {
+      "id": "100",
+      "name": "Gnosis",
+      "family": "evm",
+      "symbol": "DAI",
+      "txTemplate": "https://gnosisscan.io/tx/{hash}"
+    },
+    "122": {
+      "id": "122",
+      "name": "Fuse Mainnet",
+      "family": "evm",
+      "symbol": "FUSE",
+      "txTemplate": "https://explorer.fuse.io/tx/{hash}"
+    },
+    "130": {
+      "id": "130",
+      "name": "Unichain",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://uniscan.xyz/tx/{hash}"
+    },
+    "137": {
+      "id": "137",
+      "name": "Polygon",
+      "family": "evm",
+      "symbol": "MATIC",
+      "txTemplate": "https://polygonscan.com/tx/{hash}"
+    },
+    "143": {
+      "id": "143",
+      "name": "Monad",
+      "family": "evm",
+      "symbol": "MON Monad",
+      "txTemplate": "https://monadexplorer.com/tx/{hash}"
+    },
+    "146": {
+      "id": "146",
+      "name": "Sonic",
+      "family": "evm",
+      "symbol": "S",
+      "txTemplate": "https://sonicscan.org/tx/{hash}"
+    },
+    "148": {
+      "id": "148",
+      "name": "Shimmer",
+      "family": "evm",
+      "symbol": "SMR",
+      "txTemplate": "https://explorer.evm.shimmer.network/tx/{hash}"
+    },
+    "151": {
+      "id": "151",
+      "name": "Redbelly",
+      "family": "evm",
+      "symbol": "RBNT",
+      "txTemplate": "https://redbelly.routescan.io/tx/{hash}"
+    },
+    "169": {
+      "id": "169",
+      "name": "Manta",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://pacific-explorer.manta.network/tx/{hash}"
+    },
+    "177": {
+      "id": "177",
+      "name": "Hashkey",
+      "family": "evm",
+      "symbol": "HSK",
+      "txTemplate": "https://hashkey.blockscout.com/tx/{hash}"
+    },
+    "196": {
+      "id": "196",
+      "name": "X Layer",
+      "family": "evm",
+      "symbol": "OKB",
+      "txTemplate": "https://www.oklink.com/xlayer/tx/{hash}"
+    },
+    "204": {
+      "id": "204",
+      "name": "opBNB Mainnet",
+      "family": "evm",
+      "symbol": "BNB",
+      "txTemplate": "https://opbnbscan.com/tx/{hash}"
+    },
+    "222": {
+      "id": "222",
+      "name": "Opn",
+      "family": "evm",
+      "symbol": "IOPN",
+      "txTemplate": "https://opnscan.io/tx/{hash}"
+    },
+    "232": {
+      "id": "232",
+      "name": "Lens",
+      "family": "evm",
+      "symbol": "GHO",
+      "txTemplate": "https://explorer.lens.xyz/tx/{hash}"
+    },
+    "239": {
+      "id": "239",
+      "name": "Tac",
+      "family": "evm",
+      "symbol": "TAC",
+      "txTemplate": "https://tac.blockscout.com/tx/{hash}"
+    },
+    "250": {
+      "id": "250",
+      "name": "Fantom",
+      "family": "evm",
+      "symbol": "FTM",
+      "txTemplate": "https://explorer.fantom.network/tx/{hash}"
+    },
+    "252": {
+      "id": "252",
+      "name": "Fraxtal",
+      "family": "evm",
+      "symbol": "FRAX",
+      "txTemplate": "https://fraxscan.com/tx/{hash}"
+    },
+    "291": {
+      "id": "291",
+      "name": "Orderly Mainnet",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.orderly.network/tx/{hash}"
+    },
+    "295": {
+      "id": "295",
+      "name": "Hedera",
+      "family": "evm",
+      "symbol": "HBAR",
+      "txTemplate": "https://hashscan.io/mainnet/tx/{hash}"
+    },
+    "324": {
+      "id": "324",
+      "name": "zkSync Era Mainnet",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://www.oklink.com/zksync/tx/{hash}"
+    },
+    "388": {
+      "id": "388",
+      "name": "Cronoszkevm",
+      "family": "evm",
+      "symbol": "ZKCRO",
+      "txTemplate": "https://explorer.zkevm.cronos.org/tx/{hash}"
+    },
+    "424": {
+      "id": "424",
+      "name": "PGN (Public Goods Network)",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.publicgoods.network/tx/{hash}"
+    },
+    "432": {
+      "id": "432",
+      "name": "Converge",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer-converge-mainnet.t.conduit.xyz/tx/{hash}"
+    },
+    "480": {
+      "id": "480",
+      "name": "Worldchain",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://worldchain-mainnet.explorer.alchemy.com/tx/{hash}"
+    },
+    "484": {
+      "id": "484",
+      "name": "Camp",
+      "family": "evm",
+      "symbol": "CAMP",
+      "txTemplate": "https://camp.cloud.blockscout.com/tx/{hash}"
+    },
+    "592": {
+      "id": "592",
+      "name": "Astar",
+      "family": "evm",
+      "symbol": "ASTR",
+      "txTemplate": "https://blockscout.com/astar/tx/{hash}"
+    },
+    "686": {
+      "id": "686",
+      "name": "Karura",
+      "family": "evm"
+    },
+    "747": {
+      "id": "747",
+      "name": "Flow",
+      "family": "evm",
+      "symbol": "WFLOW",
+      "txTemplate": "https://evm.flowscan.io/tx/{hash}"
+    },
+    "784": {
+      "id": "784",
+      "name": "Ritual",
+      "family": "evm",
+      "symbol": "RITUAL",
+      "txTemplate": "https://explorer.ritualfoundation.org/tx/{hash}"
+    },
+    "787": {
+      "id": "787",
+      "name": "Acala",
+      "family": "evm"
+    },
+    "904": {
+      "id": "904",
+      "name": "Ault",
+      "family": "evm",
+      "symbol": "AULT",
+      "txTemplate": "https://main-evm-explorer.cloud.aultblockchain.xyz/tx/{hash}"
+    },
+    "957": {
+      "id": "957",
+      "name": "Lyra",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.derive.xyz/tx/{hash}"
+    },
+    "964": {
+      "id": "964",
+      "name": "Subtensorevm",
+      "family": "evm",
+      "symbol": "TAO",
+      "txTemplate": "https://evm.tao.app/tx/{hash}"
+    },
+    "988": {
+      "id": "988",
+      "name": "Stable",
+      "family": "evm",
+      "symbol": "USDT0",
+      "txTemplate": "https://stablescan.xyz/tx/{hash}"
+    },
+    "999": {
+      "id": "999",
+      "name": "Hyper EVM",
+      "family": "evm",
+      "symbol": "HYPE",
+      "txTemplate": "https://hyperevmscan.io/tx/{hash}"
+    },
+    "1030": {
+      "id": "1030",
+      "name": "Conflux eSpace",
+      "family": "evm",
+      "symbol": "CFX",
+      "txTemplate": "https://evm.confluxscan.org/tx/{hash}"
+    },
+    "1088": {
+      "id": "1088",
+      "name": "Metis",
+      "family": "evm",
+      "symbol": "METIS",
+      "txTemplate": "https://andromeda-explorer.metis.io/tx/{hash}"
+    },
+    "1101": {
+      "id": "1101",
+      "name": "Polygon zkEVM",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://zkevm.polygonscan.com/tx/{hash}"
+    },
+    "1116": {
+      "id": "1116",
+      "name": "Core Blockchain Mainnet",
+      "family": "evm",
+      "symbol": "CORE",
+      "txTemplate": "https://scan.coredao.org/tx/{hash}"
+    },
+    "1135": {
+      "id": "1135",
+      "name": "Lisk",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://blockscout.lisk.com/tx/{hash}"
+    },
+    "1284": {
+      "id": "1284",
+      "name": "Moonbeam",
+      "family": "evm",
+      "symbol": "GLMR",
+      "txTemplate": "https://moonscan.io/tx/{hash}"
+    },
+    "1285": {
+      "id": "1285",
+      "name": "Moonriver",
+      "family": "evm",
+      "symbol": "MOVR",
+      "txTemplate": "https://moonriver.moonscan.io/tx/{hash}"
+    },
+    "1300": {
+      "id": "1300",
+      "name": "Glue",
+      "family": "evm",
+      "symbol": "GLUE",
+      "txTemplate": "https://explorer.glue.net/tx/{hash}"
+    },
+    "1329": {
+      "id": "1329",
+      "name": "Seievm",
+      "family": "evm",
+      "symbol": "SEI",
+      "txTemplate": "https://seiscan.io/tx/{hash}"
+    },
+    "1408": {
+      "id": "1408",
+      "name": "zkVerify",
+      "family": "evm",
+      "symbol": "VFY",
+      "txTemplate": "https://vflow.subscan.io/tx/{hash}"
+    },
+    "1480": {
+      "id": "1480",
+      "name": "Islander",
+      "family": "evm",
+      "symbol": "VANA",
+      "txTemplate": "https://vanascan.io/tx/{hash}"
+    },
+    "1514": {
+      "id": "1514",
+      "name": "Data",
+      "family": "evm",
+      "symbol": "DATA",
+      "txTemplate": "https://www.datanetscan.io/tx/{hash}"
+    },
+    "1559": {
+      "id": "1559",
+      "name": "Tenet",
+      "family": "evm",
+      "symbol": "TENET",
+      "txTemplate": "https://tenetscan.io/tx/{hash}"
+    },
+    "1612": {
+      "id": "1612",
+      "name": "Openledger",
+      "family": "evm",
+      "symbol": "OPEN"
+    },
+    "1625": {
+      "id": "1625",
+      "name": "Gravity",
+      "family": "evm",
+      "symbol": "G",
+      "txTemplate": "https://explorer.gravity.xyz/tx/{hash}"
+    },
+    "1672": {
+      "id": "1672",
+      "name": "Pharos",
+      "family": "evm",
+      "symbol": "PROS",
+      "txTemplate": "https://www.pharosscan.xyz/tx/{hash}"
+    },
+    "1729": {
+      "id": "1729",
+      "name": "Reya",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.reya.network/tx/{hash}"
+    },
+    "1776": {
+      "id": "1776",
+      "name": "Injectiveevm",
+      "family": "evm",
+      "symbol": "INJ",
+      "txTemplate": "https://blockscout.injective.network/tx/{hash}"
+    },
+    "1868": {
+      "id": "1868",
+      "name": "Soneium",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://soneium.blockscout.com/tx/{hash}"
+    },
+    "1890": {
+      "id": "1890",
+      "name": "Lightlink",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://phoenix.lightlink.io/tx/{hash}"
+    },
+    "1923": {
+      "id": "1923",
+      "name": "Swell",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.swellnetwork.io/tx/{hash}"
+    },
+    "1992": {
+      "id": "1992",
+      "name": "Hubble",
+      "family": "evm",
+      "symbol": "USDC"
+    },
+    "1996": {
+      "id": "1996",
+      "name": "Sanko",
+      "family": "evm",
+      "symbol": "DMT",
+      "txTemplate": "https://explorer.sanko.xyz/tx/{hash}"
+    },
+    "2020": {
+      "id": "2020",
+      "name": "Ronin",
+      "family": "evm",
+      "symbol": "RON",
+      "txTemplate": "https://app.roninchain.com/tx/{hash}"
+    },
+    "2044": {
+      "id": "2044",
+      "name": "Shrapnel Subnet",
+      "family": "evm",
+      "symbol": "SHRAP",
+      "txTemplate": "https://subnets.avax.network/shrapnel/tx/{hash}"
+    },
+    "2192": {
+      "id": "2192",
+      "name": "SnaxChain",
+      "family": "evm"
+    },
+    "2222": {
+      "id": "2222",
+      "name": "Kava",
+      "family": "evm",
+      "symbol": "KAVA",
+      "txTemplate": "https://kavascan.com/tx/{hash}"
+    },
+    "2288": {
+      "id": "2288",
+      "name": "Moca",
+      "family": "evm",
+      "symbol": "MOCA",
+      "txTemplate": "https://scan.mocachain.org/tx/{hash}"
+    },
+    "2345": {
+      "id": "2345",
+      "name": "Goat",
+      "family": "evm",
+      "symbol": "BTC",
+      "txTemplate": "https://explorer.goat.network/tx/{hash}"
+    },
+    "2355": {
+      "id": "2355",
+      "name": "Silicon",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://scope.silicon.network/tx/{hash}"
+    },
+    "2366": {
+      "id": "2366",
+      "name": "Kite",
+      "family": "evm",
+      "symbol": "KITE",
+      "txTemplate": "https://kitescan.ai/tx/{hash}"
+    },
+    "2525": {
+      "id": "2525",
+      "name": "Injective",
+      "family": "evm",
+      "symbol": "INJ",
+      "txTemplate": "https://inevm.calderaexplorer.xyz/tx/{hash}"
+    },
+    "2741": {
+      "id": "2741",
+      "name": "Abstract",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://abscan.org/tx/{hash}"
+    },
+    "2818": {
+      "id": "2818",
+      "name": "Morph",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.morphl2.io/tx/{hash}"
+    },
+    "3282": {
+      "id": "3282",
+      "name": "Irys",
+      "family": "evm",
+      "symbol": "IRYS",
+      "txTemplate": "https://evm-explorer.irys.xyz/tx/{hash}"
+    },
+    "3338": {
+      "id": "3338",
+      "name": "Peaq",
+      "family": "evm",
+      "symbol": "PEAQ",
+      "txTemplate": "https://peaq.subscan.io/tx/{hash}"
+    },
+    "3637": {
+      "id": "3637",
+      "name": "Botanix",
+      "family": "evm",
+      "symbol": "BTC",
+      "txTemplate": "https://botanixscan.io/tx/{hash}"
+    },
+    "3776": {
+      "id": "3776",
+      "name": "Astar zkEVM",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://astar-zkevm.explorer.startale.com/tx/{hash}"
+    },
+    "3946": {
+      "id": "3946",
+      "name": "Nexus",
+      "family": "evm",
+      "txTemplate": "https://explorer.nexus.xyz/tx/{hash}"
+    },
+    "4114": {
+      "id": "4114",
+      "name": "Citrea",
+      "family": "evm",
+      "symbol": "CBTC",
+      "txTemplate": "https://explorer.mainnet.citrea.xyz/tx/{hash}"
+    },
+    "4153": {
+      "id": "4153",
+      "name": "Rise",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.risechain.com/tx/{hash}"
+    },
+    "4200": {
+      "id": "4200",
+      "name": "Merlin",
+      "family": "evm",
+      "symbol": "BTC",
+      "txTemplate": "https://scan.merlinchain.io/tx/{hash}"
+    },
+    "4217": {
+      "id": "4217",
+      "name": "Tempo",
+      "family": "evm",
+      "symbol": "LZEndpointDollar",
+      "txTemplate": "https://explore.tempo.xyz/tx/{hash}"
+    },
+    "4326": {
+      "id": "4326",
+      "name": "Mega ETH",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://megaeth.blockscout.com/tx/{hash}"
+    },
+    "4337": {
+      "id": "4337",
+      "name": "Merit Circle",
+      "family": "evm",
+      "symbol": "BEAM",
+      "txTemplate": "https://subnets.avax.network/beam/tx/{hash}"
+    },
+    "4352": {
+      "id": "4352",
+      "name": "Memecore",
+      "family": "evm",
+      "symbol": "M",
+      "txTemplate": "https://memecorescan.io/tx/{hash}"
+    },
+    "4663": {
+      "id": "4663",
+      "name": "Robinhood",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://robinhoodchain.blockscout.com/tx/{hash}"
+    },
+    "5000": {
+      "id": "5000",
+      "name": "Mantle",
+      "family": "evm",
+      "symbol": "MNT",
+      "txTemplate": "https://explorer.mantle.xyz/tx/{hash}"
+    },
+    "5031": {
+      "id": "5031",
+      "name": "Somnia",
+      "family": "evm",
+      "symbol": "SOMI",
+      "txTemplate": "https://mainnet.somnia.w3us.site/tx/{hash}"
+    },
+    "5042": {
+      "id": "5042",
+      "name": "Arc",
+      "family": "evm",
+      "symbol": "USDC",
+      "txTemplate": "https://arcscan.app/tx/{hash}"
+    },
+    "5165": {
+      "id": "5165",
+      "name": "Bahamut",
+      "family": "evm",
+      "symbol": "FTN Fasttoken",
+      "txTemplate": "https://ftnscan.com/tx/{hash}"
+    },
+    "5464": {
+      "id": "5464",
+      "name": "Sagaevm",
+      "family": "evm",
+      "symbol": "D",
+      "txTemplate": "https://sagaevm.sagaexplorer.io/tx/{hash}"
+    },
+    "6001": {
+      "id": "6001",
+      "name": "Bouncebit",
+      "family": "evm",
+      "symbol": "BB",
+      "txTemplate": "https://mainnet.bbscan.io/tx/{hash}"
+    },
+    "6714": {
+      "id": "6714",
+      "name": "Anubis",
+      "family": "evm",
+      "symbol": "DAI",
+      "txTemplate": "https://browser.anubispace.org/tx/{hash}"
+    },
+    "6900": {
+      "id": "6900",
+      "name": "Nibiru",
+      "family": "evm",
+      "symbol": "NIBI",
+      "txTemplate": "https://nibiscan.io/tx/{hash}"
+    },
+    "7208": {
+      "id": "7208",
+      "name": "Nexera",
+      "family": "evm",
+      "symbol": "NXRA",
+      "txTemplate": "https://explorer.nexera.network/tx/{hash}"
+    },
+    "7332": {
+      "id": "7332",
+      "name": "Horizen EON Mainnet",
+      "family": "evm",
+      "symbol": "ZEN",
+      "txTemplate": "https://eon-explorer.horizenlabs.io/tx/{hash}"
+    },
+    "7560": {
+      "id": "7560",
+      "name": "Cyber",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://cyberscan.co/tx/{hash}"
+    },
+    "7700": {
+      "id": "7700",
+      "name": "Canto",
+      "family": "evm",
+      "symbol": "CANTO",
+      "txTemplate": "https://tuber.build/tx/{hash}"
+    },
+    "7979": {
+      "id": "7979",
+      "name": "DOS Chain",
+      "family": "evm",
+      "symbol": "DOS",
+      "txTemplate": "https://explorer.doschain.com/tx/{hash}"
+    },
+    "8217": {
+      "id": "8217",
+      "name": "Klaytn",
+      "family": "evm",
+      "symbol": "KLAY",
+      "txTemplate": "https://kaiascan.io/tx/{hash}"
+    },
+    "8227": {
+      "id": "8227",
+      "name": "Space",
+      "family": "evm",
+      "symbol": "USDC",
+      "txTemplate": "https://subnets.avax.network/space/tx/{hash}"
+    },
+    "8453": {
+      "id": "8453",
+      "name": "Base",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://basescan.org/tx/{hash}"
+    },
+    "8822": {
+      "id": "8822",
+      "name": "IOTA EVM",
+      "family": "evm",
+      "symbol": "IOTA",
+      "txTemplate": "https://explorer.evm.iota.org/tx/{hash}"
+    },
+    "9069": {
+      "id": "9069",
+      "name": "Apexfusionnexus",
+      "family": "evm",
+      "symbol": "AP3X",
+      "txTemplate": "https://nexus.apexscan.org/tx/{hash}"
+    },
+    "9745": {
+      "id": "9745",
+      "name": "Plasma",
+      "family": "evm",
+      "symbol": "XPL",
+      "txTemplate": "https://plasmascan.to/tx/{hash}"
+    },
+    "10088": {
+      "id": "10088",
+      "name": "Gatelayer",
+      "family": "evm",
+      "symbol": "GT",
+      "txTemplate": "https://www.gatescan.org/gatelayer/tx/{hash}"
+    },
+    "11501": {
+      "id": "11501",
+      "name": "Bevm",
+      "family": "evm",
+      "symbol": "BTC",
+      "txTemplate": "https://scan-mainnet.bevm.io/tx/{hash}"
+    },
+    "12739": {
+      "id": "12739",
+      "name": "Concrete",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer-concrete-mainnet-0.t.conduit.xyz/tx/{hash}"
+    },
+    "13371": {
+      "id": "13371",
+      "name": "Immutable zkEVM",
+      "family": "evm",
+      "symbol": "IMX",
+      "txTemplate": "https://explorer.immutable.com/tx/{hash}"
+    },
+    "13396": {
+      "id": "13396",
+      "name": "Masa",
+      "family": "evm",
+      "symbol": "AVAX",
+      "txTemplate": "https://subnets.avax.network/masa/tx/{hash}"
+    },
+    "16661": {
+      "id": "16661",
+      "name": "Zero Gravity",
+      "family": "evm",
+      "symbol": "0G",
+      "txTemplate": "https://chainscan.0g.ai/tx/{hash}"
+    },
+    "19011": {
+      "id": "19011",
+      "name": "Homeverse",
+      "family": "evm",
+      "symbol": "OAS",
+      "txTemplate": "https://explorer.oasys.homeverse.games/tx/{hash}"
+    },
+    "21211": {
+      "id": "21211",
+      "name": "Onemoney",
+      "family": "evm",
+      "symbol": "FREE",
+      "txTemplate": "https://www.1moneynetwork.com/explorer/tx/{hash}"
+    },
+    "26514": {
+      "id": "26514",
+      "name": "Horizen",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://horizen.calderaexplorer.xyz/tx/{hash}"
+    },
+    "31612": {
+      "id": "31612",
+      "name": "Mezo",
+      "family": "evm",
+      "txTemplate": "https://explorer.mezo.org/tx/{hash}"
+    },
+    "33139": {
+      "id": "33139",
+      "name": "Ape",
+      "family": "evm",
+      "symbol": "APE",
+      "txTemplate": "https://apescan.io/tx/{hash}"
+    },
+    "34443": {
+      "id": "34443",
+      "name": "Mode",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.mode.network/tx/{hash}"
+    },
+    "41923": {
+      "id": "41923",
+      "name": "Edu",
+      "family": "evm",
+      "symbol": "EDU",
+      "txTemplate": "https://educhain.blockscout.com/tx/{hash}"
+    },
+    "42161": {
+      "id": "42161",
+      "name": "Arbitrum",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://arbiscan.io/tx/{hash}"
+    },
+    "42170": {
+      "id": "42170",
+      "name": "Arbitrum Nova",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://arbitrum-nova.blockscout.com/tx/{hash}"
+    },
+    "42220": {
+      "id": "42220",
+      "name": "Celo",
+      "family": "evm",
+      "symbol": "CELO",
+      "txTemplate": "https://explorer.celo.org/mainnet/tx/{hash}"
+    },
+    "42262": {
+      "id": "42262",
+      "name": "Oasis Emerald",
+      "family": "evm"
+    },
+    "42793": {
+      "id": "42793",
+      "name": "Etherlink",
+      "family": "evm",
+      "symbol": "XTZ",
+      "txTemplate": "https://explorer.etherlink.com/tx/{hash}"
+    },
+    "43111": {
+      "id": "43111",
+      "name": "Hemi",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.hemi.xyz/tx/{hash}"
+    },
+    "43114": {
+      "id": "43114",
+      "name": "Avalanche",
+      "family": "evm",
+      "symbol": "AVAX",
+      "txTemplate": "https://snowtrace.io/tx/{hash}"
+    },
+    "43419": {
+      "id": "43419",
+      "name": "Gunz",
+      "family": "evm",
+      "symbol": "GUN",
+      "txTemplate": "https://gunzscan.io/tx/{hash}"
+    },
+    "47763": {
+      "id": "47763",
+      "name": "Neox",
+      "family": "evm",
+      "symbol": "GAS",
+      "txTemplate": "https://xexplorer.neo.org/tx/{hash}"
+    },
+    "48900": {
+      "id": "48900",
+      "name": "Zircuit",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.zircuit.com/tx/{hash}"
+    },
+    "50104": {
+      "id": "50104",
+      "name": "Sophon",
+      "family": "evm",
+      "symbol": "SOPH",
+      "txTemplate": "https://explorer.sophon.xyz/tx/{hash}"
+    },
+    "53935": {
+      "id": "53935",
+      "name": "DFK",
+      "family": "evm",
+      "symbol": "JEWEL",
+      "txTemplate": "https://subnets.avax.network/defi-kingdoms/tx/{hash}"
+    },
+    "55244": {
+      "id": "55244",
+      "name": "Superposition",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.superposition.so/tx/{hash}"
+    },
+    "57073": {
+      "id": "57073",
+      "name": "Ink",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.inkonchain.com/tx/{hash}"
+    },
+    "59144": {
+      "id": "59144",
+      "name": "Linea",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.linea.build/tx/{hash}"
+    },
+    "60808": {
+      "id": "60808",
+      "name": "Bob",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.gobob.xyz/tx/{hash}"
+    },
+    "68770": {
+      "id": "68770",
+      "name": "Dm2verse",
+      "family": "evm",
+      "symbol": "OAS",
+      "txTemplate": "https://explorer.dm2verse.dmm.com/tx/{hash}"
+    },
+    "69000": {
+      "id": "69000",
+      "name": "Animechain",
+      "family": "evm",
+      "symbol": "ANIME",
+      "txTemplate": "https://explorer-animechain-39xf6m45e3.t.conduit.xyz/tx/{hash}"
+    },
+    "72957": {
+      "id": "72957",
+      "name": "Rayls",
+      "family": "evm",
+      "symbol": "USDr",
+      "txTemplate": "https://explorer.rayls.com/tx/{hash}"
+    },
+    "80094": {
+      "id": "80094",
+      "name": "Berachain",
+      "family": "evm",
+      "symbol": "BERA",
+      "txTemplate": "https://berascan.com/tx/{hash}"
+    },
+    "81224": {
+      "id": "81224",
+      "name": "Codex",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.codex.xyz/tx/{hash}"
+    },
+    "81457": {
+      "id": "81457",
+      "name": "Blast",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://blastscan.io/tx/{hash}"
+    },
+    "88888": {
+      "id": "88888",
+      "name": "Chiliz",
+      "family": "evm",
+      "symbol": "CHZ",
+      "txTemplate": "https://chiliscan.com/tx/{hash}"
+    },
+    "94524": {
+      "id": "94524",
+      "name": "Xchain",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://xchain-explorer.idex.io/tx/{hash}"
+    },
+    "97477": {
+      "id": "97477",
+      "name": "Doma",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.doma.xyz/tx/{hash}"
+    },
+    "98865": {
+      "id": "98865",
+      "name": "Plume",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.plumenetwork.xyz/tx/{hash}"
+    },
+    "98866": {
+      "id": "98866",
+      "name": "Plume",
+      "family": "evm",
+      "symbol": "PLUME",
+      "txTemplate": "https://explorer.plume.org/tx/{hash}"
+    },
+    "98881": {
+      "id": "98881",
+      "name": "EBI",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.ebi.xyz/tx/{hash}"
+    },
+    "102030": {
+      "id": "102030",
+      "name": "Credit Coin",
+      "family": "evm",
+      "txTemplate": "https://creditcoin.blockscout.com/tx/{hash}"
+    },
+    "111188": {
+      "id": "111188",
+      "name": "Real",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.re.al/tx/{hash}"
+    },
+    "167000": {
+      "id": "167000",
+      "name": "Taiko",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://taikoscan.io/tx/{hash}"
+    },
+    "200901": {
+      "id": "200901",
+      "name": "Bitlayer",
+      "family": "evm",
+      "symbol": "BTC",
+      "txTemplate": "https://www.btrscan.com/tx/{hash}"
+    },
+    "202110": {
+      "id": "202110",
+      "name": "Dinari",
+      "family": "evm",
+      "symbol": "DGAS",
+      "txTemplate": "https://subnets.avax.network/dinari/tx/{hash}"
+    },
+    "222222": {
+      "id": "222222",
+      "name": "Hydration",
+      "family": "evm",
+      "txTemplate": "https://hydration-explorer.neckwork.net/extrinsic/{hash}"
+    },
+    "261131": {
+      "id": "261131",
+      "name": "Zama",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.mainnet.zama.org/tx/{hash}"
+    },
+    "432204": {
+      "id": "432204",
+      "name": "Dexalot Subnet",
+      "family": "evm",
+      "symbol": "ALOT",
+      "txTemplate": "https://subnets.avax.network/dexalot/tx/{hash}"
+    },
+    "534352": {
+      "id": "534352",
+      "name": "Scroll",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://scrollscan.com/tx/{hash}"
+    },
+    "660279": {
+      "id": "660279",
+      "name": "Xai",
+      "family": "evm",
+      "symbol": "XAI",
+      "txTemplate": "https://explorer.xai-chain.net/tx/{hash}"
+    },
+    "685689": {
+      "id": "685689",
+      "name": "Gensyn",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://gensyn-mainnet.explorer.alchemy.com/tx/{hash}"
+    },
+    "710420": {
+      "id": "710420",
+      "name": "Tiltyard",
+      "family": "evm",
+      "symbol": "TILT",
+      "txTemplate": "https://subnets.avax.network/en/tiltyard/tx/{hash}"
+    },
+    "747474": {
+      "id": "747474",
+      "name": "Katana",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://katanascan.com/tx/{hash}"
+    },
+    "810180": {
+      "id": "810180",
+      "name": "Zklink",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.zklink.io/tx/{hash}"
+    },
+    "1440000": {
+      "id": "1440000",
+      "name": "XRPLEVM",
+      "family": "evm",
+      "txTemplate": "https://explorer.xrplevm.org/tx/{hash}"
+    },
+    "3586256": {
+      "id": "3586256",
+      "name": "Lighter",
+      "family": "evm",
+      "symbol": "USDC",
+      "txTemplate": "https://lighter.exchange/explorer/tx/{hash}"
+    },
+    "5064014": {
+      "id": "5064014",
+      "name": "Ethereal",
+      "family": "evm",
+      "symbol": "USDe",
+      "txTemplate": "https://explorer.ethereal.trade/tx/{hash}"
+    },
+    "5151706": {
+      "id": "5151706",
+      "name": "Loot",
+      "family": "evm",
+      "symbol": "AGLD",
+      "txTemplate": "https://explorer.lootchain.com/tx/{hash}"
+    },
+    "6985385": {
+      "id": "6985385",
+      "name": "Humanity",
+      "family": "evm",
+      "symbol": "H",
+      "txTemplate": "https://humanity-mainnet.explorer.alchemy.com/tx/{hash}"
+    },
+    "7777777": {
+      "id": "7777777",
+      "name": "Zora",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.zora.energy/tx/{hash}"
+    },
+    "11155111": {
+      "id": "11155111",
+      "name": "Sepolia",
+      "family": "evm",
+      "symbol": "SETH",
+      "txTemplate": "https://sepolia.etherscan.io/tx/{hash}"
+    },
+    "21000000": {
+      "id": "21000000",
+      "name": "Corn",
+      "family": "evm",
+      "symbol": "BTCN",
+      "txTemplate": "https://cornscan.io/tx/{hash}"
+    },
+    "245022934": {
+      "id": "245022934",
+      "name": "Neon",
+      "family": "evm"
+    },
+    "666666666": {
+      "id": "666666666",
+      "name": "Degen",
+      "family": "evm",
+      "symbol": "DEGEN",
+      "txTemplate": "https://explorer.degen.tips/tx/{hash}"
+    },
+    "1313161554": {
+      "id": "1313161554",
+      "name": "Aurora",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://explorer.mainnet.aurora.dev/tx/{hash}"
+    },
+    "1380012617": {
+      "id": "1380012617",
+      "name": "Rari Chain",
+      "family": "evm",
+      "symbol": "ETH",
+      "txTemplate": "https://rari.calderaexplorer.xyz/tx/{hash}"
+    },
+    "1666600000": {
+      "id": "1666600000",
+      "name": "Harmony",
+      "family": "evm",
+      "symbol": "ONE",
+      "txTemplate": "https://explorer.harmony.one/tx/{hash}"
+    },
+    "2046399126": {
+      "id": "2046399126",
+      "name": "Skale",
+      "family": "evm",
+      "symbol": "MATIC",
+      "txTemplate": "https://elated-tan-skat.explorer.mainnet.skalenodes.com/tx/{hash}"
+    },
+    "tron": {
+      "id": "tron",
+      "name": "Tron",
+      "family": "tron",
+      "symbol": "TRX",
+      "txTemplate": "https://tronscan.org/#/transaction/{hash}"
+    },
+    "solana": {
+      "id": "solana",
+      "name": "Solana",
+      "family": "solana",
+      "symbol": "SOL",
+      "txTemplate": "https://solscan.io/tx/{hash}"
+    },
+    "bitcoin": {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "family": "utxo",
+      "symbol": "BTC",
+      "txTemplate": "https://mempool.space/tx/{hash}"
+    },
+    "litecoin": {
+      "id": "litecoin",
+      "name": "Litecoin",
+      "family": "utxo",
+      "symbol": "LTC",
+      "txTemplate": "https://litecoinspace.org/tx/{hash}"
+    },
+    "bitcoincash": {
+      "id": "bitcoincash",
+      "name": "Bitcoin Cash",
+      "family": "utxo",
+      "symbol": "BCH",
+      "txTemplate": "https://blockchair.com/bitcoin-cash/transaction/{hash}"
+    },
+    "dogecoin": {
+      "id": "dogecoin",
+      "name": "Dogecoin",
+      "family": "utxo",
+      "symbol": "DOGE",
+      "txTemplate": "https://dogechain.info/tx/{hash}"
+    },
+    "zcash": {
+      "id": "zcash",
+      "name": "Zcash",
+      "family": "utxo",
+      "symbol": "ZEC"
+    },
+    "thorchain": {
+      "id": "thorchain",
+      "name": "THORChain",
+      "family": "cosmos",
+      "symbol": "RUNE",
+      "txTemplate": "https://thorchain.net/tx/{hash}"
+    },
+    "cosmos": {
+      "id": "cosmos",
+      "name": "Cosmos Hub",
+      "family": "cosmos",
+      "symbol": "ATOM",
+      "txTemplate": "https://www.mintscan.io/cosmos/tx/{hash}"
+    },
+    "sui": {
+      "id": "sui",
+      "name": "Sui",
+      "family": "sui",
+      "symbol": "SUI",
+      "txTemplate": "https://suivision.xyz/txblock/{hash}"
+    },
+    "aptos": {
+      "id": "aptos",
+      "name": "Aptos",
+      "family": "aptos",
+      "symbol": "APT",
+      "txTemplate": "https://explorer.aptoslabs.com/txn/{hash}?network=mainnet"
+    },
+    "stellar": {
+      "id": "stellar",
+      "name": "Stellar",
+      "family": "stellar",
+      "symbol": "XLM",
+      "txTemplate": "https://stellar.expert/explorer/public/tx/{hash}"
+    },
+    "starknet": {
+      "id": "starknet",
+      "name": "Starknet",
+      "family": "starknet",
+      "symbol": "STRK",
+      "txTemplate": "https://voyager.online/tx/{hash}"
+    },
+    "ton": {
+      "id": "ton",
+      "name": "TON",
+      "family": "ton",
+      "symbol": "TON",
+      "txTemplate": "https://tonviewer.com/transaction/{hash}"
+    },
+    "xrp": {
+      "id": "xrp",
+      "name": "XRP Ledger",
+      "family": "xrpl",
+      "symbol": "XRP",
+      "txTemplate": "https://livenet.xrpl.org/transactions/{hash}"
+    },
+    "hypercore": {
+      "id": "hypercore",
+      "name": "Hyperliquid (HyperCore)",
+      "family": "hypercore",
+      "symbol": "HYPE",
+      "txTemplate": "https://app.hyperliquid.xyz/explorer/tx/{hash}"
+    },
+    "fogo": {
+      "id": "fogo",
+      "name": "Fogo",
+      "family": "solana",
+      "symbol": "FOGO"
+    },
+    "canton": {
+      "id": "canton",
+      "name": "Canton",
+      "family": "canton",
+      "symbol": "Amulet"
+    },
+    "initia": {
+      "id": "initia",
+      "name": "Initia",
+      "family": "initia",
+      "symbol": "INIT"
+    },
+    "iota": {
+      "id": "iota",
+      "name": "IOTA L1",
+      "family": "iotamove",
+      "symbol": "IOTA"
+    },
+    "movement": {
+      "id": "movement",
+      "name": "Movement",
+      "family": "aptos",
+      "symbol": "MOVE"
+    },
+    "algorand": {
+      "id": "algorand",
+      "name": "Algorand",
+      "family": "algorand"
+    },
+    "near": {
+      "id": "near",
+      "name": "Near",
+      "family": "near"
+    },
+    "injective": {
+      "id": "injective",
+      "name": "Injective",
+      "family": "cosmwasm"
+    },
+    "osmosis": {
+      "id": "osmosis",
+      "name": "Osmosis",
+      "family": "cosmwasm"
+    },
+    "pythnet": {
+      "id": "pythnet",
+      "name": "Pythnet",
+      "family": "solana"
+    },
+    "sei": {
+      "id": "sei",
+      "name": "Sei",
+      "family": "cosmwasm",
+      "txTemplate": "https://sei.explorers.guru/transaction/{hash}"
+    },
+    "stacks": {
+      "id": "stacks",
+      "name": "Stacks",
+      "family": "stacks",
+      "txTemplate": "https://explorer.hiro.so/txid/{hash}"
+    },
+    "wormchain": {
+      "id": "wormchain",
+      "name": "Wormchain",
+      "family": "cosmwasm"
+    },
+    "evmos": {
+      "id": "evmos",
+      "name": "Evmos",
+      "family": "cosmwasm"
+    },
+    "kujira": {
+      "id": "kujira",
+      "name": "Kujira",
+      "family": "cosmwasm"
+    },
+    "neutron": {
+      "id": "neutron",
+      "name": "Neutron",
+      "family": "cosmwasm"
+    },
+    "celestia": {
+      "id": "celestia",
+      "name": "Celestia",
+      "family": "cosmwasm"
+    },
+    "stargaze": {
+      "id": "stargaze",
+      "name": "Stargaze",
+      "family": "cosmwasm"
+    },
+    "seda": {
+      "id": "seda",
+      "name": "Seda",
+      "family": "cosmwasm"
+    },
+    "dymension": {
+      "id": "dymension",
+      "name": "Dymension",
+      "family": "cosmwasm"
+    },
+    "provenance": {
+      "id": "provenance",
+      "name": "Provenance",
+      "family": "cosmwasm"
+    },
+    "noble": {
+      "id": "noble",
+      "name": "Noble",
+      "family": "cosmwasm"
+    },
+    "terra-classic": {
+      "id": "terra-classic",
+      "name": "Terra Classic",
+      "family": "unknown"
+    },
+    "terra": {
+      "id": "terra",
+      "name": "Terra",
+      "family": "unknown"
+    },
+    "xpla": {
+      "id": "xpla",
+      "name": "XPLA",
+      "family": "unknown"
+    }
+  },
+  "aliases": {
+    "native": {
+      "7565164": "solana",
+      "728126428": "tron",
+      "1151111081099710": "solana",
+      "1021111031099710": "fogo",
+      "9270000000000000": "sui",
+      "1201081091099710": "stellar",
+      "20000000000001": "bitcoin",
+      "20000000000002": "bitcoincash",
+      "20000000000003": "litecoin",
+      "20000000000004": "dogecoin",
+      "20000000000005": "zcash"
+    },
+    "lifi": {
+      "1": "1",
+      "10": "10",
+      "14": "14",
+      "25": "25",
+      "30": "30",
+      "40": "40",
+      "50": "50",
+      "56": "56",
+      "88": "88",
+      "100": "100",
+      "122": "122",
+      "130": "130",
+      "137": "137",
+      "143": "143",
+      "146": "146",
+      "196": "196",
+      "252": "252",
+      "324": "324",
+      "480": "480",
+      "747": "747",
+      "988": "988",
+      "999": "999",
+      "1088": "1088",
+      "1135": "1135",
+      "1329": "1329",
+      "1337": "hypercore",
+      "1480": "1480",
+      "1625": "1625",
+      "1672": "1672",
+      "1776": "1776",
+      "1868": "1868",
+      "2020": "2020",
+      "2741": "2741",
+      "2818": "2818",
+      "4217": "4217",
+      "4326": "4326",
+      "4663": "4663",
+      "5000": "5000",
+      "5031": "5031",
+      "5042": "5042",
+      "8217": "8217",
+      "8453": "8453",
+      "9745": "9745",
+      "13371": "13371",
+      "16661": "16661",
+      "33139": "33139",
+      "34443": "34443",
+      "42161": "42161",
+      "42170": "42170",
+      "42220": "42220",
+      "42793": "42793",
+      "43111": "43111",
+      "43114": "43114",
+      "57073": "57073",
+      "59144": "59144",
+      "80094": "80094",
+      "98866": "98866",
+      "534352": "534352",
+      "747474": "747474",
+      "3586256": "3586256",
+      "728126428": "tron",
+      "1151111081099710": "solana",
+      "20000000000001": "bitcoin",
+      "9270000000000000": "sui",
+      "1201081091099710": "stellar",
+      "20000000000005": "zcash"
+    },
+    "debridge": {
+      "1": "1",
+      "10": "10",
+      "56": "56",
+      "137": "137",
+      "4663": "4663",
+      "5042": "5042",
+      "8453": "8453",
+      "42161": "42161",
+      "43114": "43114",
+      "59144": "59144",
+      "7565164": "solana",
+      "100000013": "1514",
+      "100000019": "25",
+      "100000022": "999",
+      "100000026": "tron",
+      "100000029": "1776",
+      "100000030": "143",
+      "100000031": "4326"
+    },
+    "layerzero": {
+      "1": "1",
+      "2": "56",
+      "6": "43114",
+      "9": "137",
+      "10": "42161",
+      "11": "10",
+      "12": "250",
+      "14": "0",
+      "15": "53935",
+      "16": "1666600000",
+      "26": "1284",
+      "101": "1",
+      "102": "56",
+      "106": "43114",
+      "108": "aptos",
+      "109": "137",
+      "110": "42161",
+      "111": "10",
+      "112": "250",
+      "114": "0",
+      "115": "53935",
+      "116": "1666600000",
+      "118": "432204",
+      "125": "42220",
+      "126": "1284",
+      "138": "122",
+      "145": "100",
+      "148": "2044",
+      "149": "7979",
+      "150": "8217",
+      "151": "1088",
+      "153": "1116",
+      "155": "66",
+      "158": "1101",
+      "159": "7700",
+      "161": "11155111",
+      "165": "324",
+      "166": "1285",
+      "167": "1285",
+      "173": "1559",
+      "175": "42170",
+      "176": "82",
+      "177": "2222",
+      "181": "5000",
+      "182": "1992",
+      "183": "59144",
+      "184": "8453",
+      "195": "7777777",
+      "196": "88",
+      "197": "5151706",
+      "198": "4337",
+      "199": "40",
+      "202": "204",
+      "210": "592",
+      "211": "1313161554",
+      "212": "1030",
+      "213": "291",
+      "214": "534352",
+      "215": "7332",
+      "216": "37",
+      "217": "169",
+      "218": "424",
+      "230": "148",
+      "234": "2525",
+      "235": "1380012617",
+      "236": "660279",
+      "237": "111188",
+      "238": "710420",
+      "243": "81457",
+      "255": "252",
+      "257": "3776",
+      "260": "34443",
+      "263": "13396",
+      "265": "19011",
+      "266": "4200",
+      "267": "666666666",
+      "273": "2046399126",
+      "274": "196",
+      "278": "1996",
+      "279": "60808",
+      "280": "1329",
+      "282": "98881",
+      "283": "7560",
+      "284": "8822",
+      "285": "81",
+      "290": "167000",
+      "291": "94524",
+      "292": "42793",
+      "293": "6001",
+      "294": "1625",
+      "295": "14",
+      "301": "810180",
+      "302": "3338",
+      "303": "48900",
+      "309": "1890",
+      "311": "957",
+      "312": "33139",
+      "313": "1729",
+      "314": "200901",
+      "315": "68770",
+      "316": "295",
+      "317": "11501",
+      "318": "98865",
+      "319": "480",
+      "320": "130",
+      "321": "1135",
+      "322": "2818",
+      "323": "81224",
+      "324": "2741",
+      "327": "55244",
+      "328": "41923",
+      "329": "43111",
+      "330": "1480",
+      "331": "21000000",
+      "332": "146",
+      "333": "30",
+      "334": "50104",
+      "335": "1923",
+      "336": "747",
+      "339": "57073",
+      "340": "1868",
+      "341": "8227",
+      "342": "1300",
+      "359": "25",
+      "360": "388",
+      "361": "2345",
+      "362": "80094",
+      "363": "5165",
+      "364": "1514",
+      "365": "50",
+      "366": "12739",
+      "367": "999",
+      "369": "6900",
+      "370": "98866",
+      "371": "43419",
+      "372": "69000",
+      "373": "232",
+      "374": "964",
+      "375": "747474",
+      "376": "3637",
+      "377": "239",
+      "379": "2355",
+      "380": "5031",
+      "381": "484",
+      "382": "6985385",
+      "383": "9745",
+      "384": "9069",
+      "385": "202110",
+      "386": "1408",
+      "388": "16661",
+      "389": "10088",
+      "390": "143",
+      "391": "5064014",
+      "392": "1612",
+      "393": "97477",
+      "394": "1776",
+      "395": "7208",
+      "396": "988",
+      "397": "261131",
+      "398": "4326",
+      "399": "26514",
+      "400": "432",
+      "401": "4153",
+      "402": "151",
+      "403": "4114",
+      "404": "2288",
+      "405": "5464",
+      "406": "2366",
+      "407": "1672",
+      "408": "3282",
+      "409": "88888",
+      "410": "4217",
+      "412": "685689",
+      "413": "904",
+      "414": "47763",
+      "415": "72957",
+      "416": "4663",
+      "417": "5042",
+      "420": "tron",
+      "461": "21211",
+      "462": "784",
+      "464": "222",
+      "465": "6714",
+      "466": "4352",
+      "467": "177",
+      "567": "canton",
+      "30101": "1",
+      "30102": "56",
+      "30106": "43114",
+      "30108": "aptos",
+      "30109": "137",
+      "30110": "42161",
+      "30111": "10",
+      "30112": "250",
+      "30114": "0",
+      "30115": "53935",
+      "30116": "1666600000",
+      "30118": "432204",
+      "30125": "42220",
+      "30126": "1284",
+      "30138": "122",
+      "30145": "100",
+      "30148": "2044",
+      "30149": "7979",
+      "30150": "8217",
+      "30151": "1088",
+      "30153": "1116",
+      "30155": "66",
+      "30158": "1101",
+      "30159": "7700",
+      "30161": "11155111",
+      "30165": "324",
+      "30167": "1285",
+      "30168": "solana",
+      "30173": "1559",
+      "30175": "42170",
+      "30176": "82",
+      "30177": "2222",
+      "30181": "5000",
+      "30182": "1992",
+      "30183": "59144",
+      "30184": "8453",
+      "30195": "7777777",
+      "30196": "88",
+      "30197": "5151706",
+      "30198": "4337",
+      "30199": "40",
+      "30202": "204",
+      "30210": "592",
+      "30211": "1313161554",
+      "30212": "1030",
+      "30213": "291",
+      "30214": "534352",
+      "30215": "7332",
+      "30216": "37",
+      "30217": "169",
+      "30218": "424",
+      "30230": "148",
+      "30234": "2525",
+      "30235": "1380012617",
+      "30236": "660279",
+      "30237": "111188",
+      "30238": "710420",
+      "30243": "81457",
+      "30255": "252",
+      "30257": "3776",
+      "30260": "34443",
+      "30263": "13396",
+      "30265": "19011",
+      "30266": "4200",
+      "30267": "666666666",
+      "30273": "2046399126",
+      "30274": "196",
+      "30278": "1996",
+      "30279": "60808",
+      "30280": "1329",
+      "30282": "98881",
+      "30283": "7560",
+      "30284": "8822",
+      "30285": "81",
+      "30290": "167000",
+      "30291": "94524",
+      "30292": "42793",
+      "30293": "6001",
+      "30294": "1625",
+      "30295": "14",
+      "30301": "810180",
+      "30302": "3338",
+      "30303": "48900",
+      "30309": "1890",
+      "30311": "957",
+      "30312": "33139",
+      "30313": "1729",
+      "30314": "200901",
+      "30315": "68770",
+      "30316": "295",
+      "30317": "11501",
+      "30318": "98865",
+      "30319": "480",
+      "30320": "130",
+      "30321": "1135",
+      "30322": "2818",
+      "30323": "81224",
+      "30324": "2741",
+      "30325": "movement",
+      "30326": "initia",
+      "30327": "55244",
+      "30328": "41923",
+      "30329": "43111",
+      "30330": "1480",
+      "30331": "21000000",
+      "30332": "146",
+      "30333": "30",
+      "30334": "50104",
+      "30335": "1923",
+      "30336": "747",
+      "30339": "57073",
+      "30340": "1868",
+      "30341": "8227",
+      "30342": "1300",
+      "30343": "ton",
+      "30359": "25",
+      "30360": "388",
+      "30361": "2345",
+      "30362": "80094",
+      "30363": "5165",
+      "30364": "1514",
+      "30365": "50",
+      "30366": "12739",
+      "30367": "999",
+      "30369": "6900",
+      "30370": "98866",
+      "30371": "43419",
+      "30372": "69000",
+      "30373": "232",
+      "30374": "964",
+      "30375": "747474",
+      "30376": "3637",
+      "30377": "239",
+      "30378": "sui",
+      "30379": "2355",
+      "30380": "5031",
+      "30381": "484",
+      "30382": "6985385",
+      "30383": "9745",
+      "30384": "9069",
+      "30385": "202110",
+      "30386": "1408",
+      "30388": "16661",
+      "30389": "10088",
+      "30390": "143",
+      "30391": "5064014",
+      "30392": "1612",
+      "30393": "97477",
+      "30394": "1776",
+      "30395": "7208",
+      "30396": "988",
+      "30397": "261131",
+      "30398": "4326",
+      "30399": "26514",
+      "30400": "432",
+      "30401": "4153",
+      "30402": "151",
+      "30403": "4114",
+      "30404": "2288",
+      "30405": "5464",
+      "30406": "2366",
+      "30407": "1672",
+      "30408": "3282",
+      "30409": "88888",
+      "30410": "4217",
+      "30412": "685689",
+      "30413": "904",
+      "30414": "47763",
+      "30415": "72957",
+      "30416": "4663",
+      "30417": "5042",
+      "30420": "tron",
+      "30423": "iota",
+      "30461": "21211",
+      "30462": "784",
+      "30464": "222",
+      "30465": "6714",
+      "30466": "4352",
+      "30467": "177",
+      "30500": "starknet",
+      "30567": "canton",
+      "30600": "stellar"
+    },
+    "wormhole": {
+      "1": "solana",
+      "2": "1",
+      "3": "terra-classic",
+      "4": "56",
+      "5": "137",
+      "6": "43114",
+      "7": "42262",
+      "8": "algorand",
+      "9": "1313161554",
+      "10": "250",
+      "11": "686",
+      "12": "787",
+      "13": "8217",
+      "14": "42220",
+      "15": "near",
+      "16": "1284",
+      "17": "245022934",
+      "18": "terra",
+      "19": "injective",
+      "20": "osmosis",
+      "21": "sui",
+      "22": "aptos",
+      "23": "42161",
+      "24": "10",
+      "25": "100",
+      "26": "pythnet",
+      "28": "xpla",
+      "29": "bitcoin",
+      "30": "8453",
+      "32": "sei",
+      "33": "30",
+      "34": "534352",
+      "35": "5000",
+      "36": "81457",
+      "37": "196",
+      "38": "59144",
+      "39": "80094",
+      "40": "1329",
+      "43": "2192",
+      "44": "130",
+      "45": "480",
+      "46": "57073",
+      "47": "999",
+      "48": "143",
+      "50": "31612",
+      "51": "fogo",
+      "52": "146",
+      "55": "98866",
+      "57": "1440000",
+      "58": "9745",
+      "59": "102030",
+      "60": "stacks",
+      "63": "2288",
+      "64": "4326",
+      "66": "xrp",
+      "67": "16661",
+      "68": "4217",
+      "69": "3946",
+      "71": "5042",
+      "72": "4663",
+      "73": "222222",
+      "3104": "wormchain",
+      "4000": "cosmos",
+      "4001": "evmos",
+      "4002": "kujira",
+      "4003": "neutron",
+      "4004": "celestia",
+      "4005": "stargaze",
+      "4006": "seda",
+      "4007": "dymension",
+      "4008": "provenance",
+      "4009": "noble",
+      "65000": "hypercore"
+    }
+  }
+}

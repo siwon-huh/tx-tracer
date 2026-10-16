@@ -1,0 +1,1036 @@
+{
+  "updatedAt": "2026-10-16T13:53:12.006Z",
+  "chains": {
+    "1": {
+      "name": "Ethereum",
+      "path": "/logos/bd61892db3cff958d307.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/ethereum.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "10": {
+      "name": "OP Mainnet",
+      "path": "/logos/31521544221c055c7c80.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/optimism.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "14": {
+      "name": "Flare",
+      "path": "/logos/d1bc8bf23c50d23426cc.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/flare.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "25": {
+      "name": "Cronos",
+      "path": "/logos/07bde3c6531bfa137f31.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/cronos.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "30": {
+      "name": "Rootstock",
+      "path": "/logos/f4edfe9c8aa5232c9e79.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/rootstock.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "40": {
+      "name": "Telos",
+      "path": "/logos/6ef7b77c076abc587fe1.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/telo.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "50": {
+      "name": "XDC",
+      "path": "/logos/b2ed7cefc3e17853e9b7.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/xdc.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "56": {
+      "name": "BSC",
+      "path": "/logos/8a253298c617d2273b12.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/bsc.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "88": {
+      "name": "Viction",
+      "path": "/logos/c9aa477700e453ee608b.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/viction.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "100": {
+      "name": "Gnosis",
+      "path": "/logos/dfdde637dc73a7571a6a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/gnosis.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "122": {
+      "name": "FUSE",
+      "path": "/logos/c736b1946fc11baeb684.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/fuse.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "130": {
+      "name": "Unichain",
+      "path": "/logos/669e1e5bd1f17e50db6c.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/unichain.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "137": {
+      "name": "Polygon",
+      "path": "/logos/342be777ec4567ce2628.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/polygon.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "143": {
+      "name": "Monad",
+      "path": "/logos/395b0ace091fd18fa000.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/monad.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "146": {
+      "name": "Sonic",
+      "path": "/logos/6bd08858e81e4b129a83.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/sonic.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "196": {
+      "name": "XLayer",
+      "path": "/logos/1cce9d06730bd7ee98a2.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/xlayer.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "250": {
+      "name": "Fantom",
+      "path": "/logos/9bad2d5add49b61f2ca2.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/fantom.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/chains",
+      "aliases": []
+    },
+    "252": {
+      "name": "Fraxtal",
+      "path": "/logos/6593ec8b260188c0a50e.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/fraxtal.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "288": {
+      "name": "Boba Network",
+      "path": "/logos/1a042c9e6dab39a25fc5.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/boba.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/chains",
+      "aliases": []
+    },
+    "324": {
+      "name": "zkSync",
+      "path": "/logos/1e29d1153a41a6bd8f67.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/zksync.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "480": {
+      "name": "World Chain",
+      "path": "/logos/cf73618cff6c34187f58.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/world.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "747": {
+      "name": "Flow",
+      "path": "/logos/5bcf57bd730f52996848.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/flow.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "988": {
+      "name": "Stable",
+      "path": "/logos/da831639dc6671ae0fdb.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/stable.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "999": {
+      "name": "HyperEVM",
+      "path": "/logos/8724be0d4c4020a0b926.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/hyperevm.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "1088": {
+      "name": "Metis",
+      "path": "/logos/ab3a84616a2861a68825.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/metis.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "1135": {
+      "name": "Lisk",
+      "path": "/logos/2f215812d47b756bcbf2.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/lisk.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "1329": {
+      "name": "Sei",
+      "path": "/logos/88464578c4287c326113.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/sei.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "1480": {
+      "name": "Vana",
+      "path": "/logos/7c9263bf219f54de9f53.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/vana.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "1625": {
+      "name": "Gravity",
+      "path": "/logos/5bc345cb46db1ac3c99b.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/gravity.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "1672": {
+      "name": "Pharos Mainnet",
+      "path": "/logos/ca1ad214f9472d73bcfc.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/pharos.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "1776": {
+      "name": "Injective",
+      "path": "/logos/eb503dcc77b35caf8b90.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/injective.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "1868": {
+      "name": "Soneium",
+      "path": "/logos/bd7645232b4a682a8989.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/soneium.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "2020": {
+      "name": "Ronin",
+      "path": "/logos/c01e65eadc7c610b04ef.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/ronin.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "2741": {
+      "name": "Abstract",
+      "path": "/logos/e9e7cb7018fa97916b6d.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/abstract.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "2818": {
+      "name": "Morph",
+      "path": "/logos/0a0b5451cc12ba72ba17.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/morph.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "4217": {
+      "name": "Tempo",
+      "path": "/logos/26c56bb71c968e58ad5f.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/tempo.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "4326": {
+      "name": "MegaETH",
+      "path": "/logos/702fa89c35f998fa86bd.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/megaeth.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "4663": {
+      "name": "Robinhood Chain",
+      "path": "/logos/0424c0da8b7f4373b660.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/robinhood.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "5000": {
+      "name": "Mantle",
+      "path": "/logos/b751db6394b8f7ee7fbd.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/mantle.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "5031": {
+      "name": "Somnia",
+      "path": "/logos/2b0b22187a2fd150a595.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/somnia.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "5042": {
+      "name": "Arc",
+      "path": "/logos/9c21da1fc29937290370.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/arc.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "8217": {
+      "name": "Kaia",
+      "path": "/logos/38154b408cc6584ab2d0.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/kaia.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "8453": {
+      "name": "Base",
+      "path": "/logos/de343bd68771b13591b6.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/base.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "9745": {
+      "name": "Plasma",
+      "path": "/logos/29d1b5431193025bdb80.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/plasma.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "13371": {
+      "name": "Immutable zkEVM",
+      "path": "/logos/2b2e334de1a4bb9a14ef.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/imx.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "16661": {
+      "name": "0G Mainnet",
+      "path": "/logos/64da9a9394eb6a6976e6.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/0g.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "33139": {
+      "name": "Apechain",
+      "path": "/logos/facdc9690c4570b38b4a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/apechain.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "34443": {
+      "name": "Mode",
+      "path": "/logos/522fd4b81704f7cb44ca.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/mode.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "42161": {
+      "name": "Arbitrum",
+      "path": "/logos/35cebc7f281a5f6882ef.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/arbitrum.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "42170": {
+      "name": "Arbitrum Nova",
+      "path": "/logos/814099365f66dfbfc172.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/arbitrum-nova.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "42220": {
+      "name": "Celo",
+      "path": "/logos/8595d5fd319d553a7019.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/celo.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "42793": {
+      "name": "Etherlink",
+      "path": "/logos/5d413bad053e4f32afa0.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/etherlink.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "43111": {
+      "name": "Hemi",
+      "path": "/logos/9cb89d54a531dcf14e02.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/hemi.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "43114": {
+      "name": "Avalanche",
+      "path": "/logos/8da7dbe3aa9e897ee6d0.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/avalanche.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "57073": {
+      "name": "Ink",
+      "path": "/logos/76898117420fa7e392a2.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/ink.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "59144": {
+      "name": "Linea",
+      "path": "/logos/20888c6a13c25b33e10b.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/linea.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "60808": {
+      "name": "BOB",
+      "path": "/logos/3c4da9a3091c83366efe.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/bob.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/chains",
+      "aliases": []
+    },
+    "80094": {
+      "name": "Berachain",
+      "path": "/logos/efdb3bbfafaa97925778.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/bera.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "81457": {
+      "name": "Blast",
+      "path": "/logos/acab32c6de520809855e.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/blast.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/chains",
+      "aliases": []
+    },
+    "98866": {
+      "name": "Plume",
+      "path": "/logos/a8b4655c6d272e3eb76f.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/plume.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "534352": {
+      "name": "Scroll",
+      "path": "/logos/41701f1fab4d98f604c2.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/scroll.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "747474": {
+      "name": "Katana",
+      "path": "/logos/4c325ec3e7757385bf02.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/katana.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "3586256": {
+      "name": "Lighter",
+      "path": "/logos/bd5c00cdbafbb8b08eb7.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/lighter.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "1313161554": {
+      "name": "Aurora",
+      "path": "/logos/888cd6112f47f5495271.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/aurora.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/chains",
+      "aliases": []
+    },
+    "bitcoin": {
+      "name": "Bitcoin",
+      "path": "/logos/ffb016338ded87c728b7.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/bitcoin.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "bitcoincash": {
+      "name": "Bitcoin Cash",
+      "path": "/logos/6cb15b7fcefe7e931829.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/bitcoincash.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/chains",
+      "aliases": []
+    },
+    "dogecoin": {
+      "name": "Dogecoin",
+      "path": "/logos/fd1c5bba25550fb38175.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/dogecoin.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/chains",
+      "aliases": []
+    },
+    "hypercore": {
+      "name": "Hyperliquid",
+      "path": "/logos/d84ac225e8466abf0c0e.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/hyperliquid.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "litecoin": {
+      "name": "Litecoin",
+      "path": "/logos/20dd004b22b76d981518.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/litecoin.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/chains",
+      "aliases": []
+    },
+    "solana": {
+      "name": "Solana",
+      "path": "/logos/26b1c40fab6f6947a86d.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/solana.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "stellar": {
+      "name": "Stellar",
+      "path": "/logos/1945280ccd3860850e70.svg",
+      "source": "https://lifinance.github.io/types/src/assets/icons/chains/stellar.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "sui": {
+      "name": "Sui",
+      "path": "/logos/7dc6fa5a43aa3db7ffc1.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/sui.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "thorchain": {
+      "name": "THORChain",
+      "path": "/logos/ce3f053d81dcf1417909.png",
+      "source": "https://cdn.sanity.io/images/355nlzcp/production/c973725813bf6fcd1c3a0a37adf3252677529ace-512x512.png",
+      "sourcePage": "https://thorchain.org/brand-assets",
+      "aliases": []
+    },
+    "tron": {
+      "name": "Tron",
+      "path": "/logos/3756950b9e923e0123a8.svg",
+      "source": "https://lifinance.github.io/types/src/assets/icons/chains/tron.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    },
+    "zcash": {
+      "name": "Zcash",
+      "path": "/logos/dd934d4108291005937e.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/zcash.svg",
+      "sourcePage": "https://li.quest/v1/chains?chainTypes=EVM,SVM,UTXO,MVM,TVM,STL",
+      "aliases": []
+    }
+  },
+  "bridges": {
+    "across": {
+      "name": "AcrossV4",
+      "path": "/logos/84c2c1d141cd7d898f4a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/across.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "AcrossV4"
+      ]
+    },
+    "allbridge": {
+      "name": "Allbridge",
+      "path": "/logos/1e2a79a09a7474855618.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/allbridge.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Allbridge"
+      ]
+    },
+    "arbitrum": {
+      "name": "Arbitrum Bridge",
+      "path": "/logos/7e99312a14cd07ed4971.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/arbitrum.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Arbitrum Bridge",
+        "Arbitrum Official"
+      ]
+    },
+    "avalanche": {
+      "name": "avalanche",
+      "path": "/logos/8da7dbe3aa9e897ee6d0.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/avalanche.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "cbridge": {
+      "name": "cbridge",
+      "path": "/logos/3e43113f717a1c481e66.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/cbridge.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "ccip": {
+      "name": "Chainlink CCIP",
+      "path": "/logos/baf12d3c3c62a86c7ae6.svg",
+      "source": "https://cdn.prod.website-files.com/5f6b7190899f41fb70882d08/6aa7fef7f56d1f1d953c589d_Chainlink-Symbol-Blue.svg",
+      "sourcePage": "https://chain.link/brand-assets",
+      "aliases": [
+        "Chainlink",
+        "CCIP"
+      ]
+    },
+    "cctp": {
+      "name": "Circle CCTP",
+      "path": "/logos/402540eeb47b316bed0a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/circle.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Circle CCTP"
+      ]
+    },
+    "celercircle": {
+      "name": "CCTP + Celer (Standard)",
+      "path": "/logos/402540eeb47b316bed0a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/circle.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "CCTP + Celer (Standard)"
+      ]
+    },
+    "celercirclefast": {
+      "name": "CCTP + Celer (Fast)",
+      "path": "/logos/402540eeb47b316bed0a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/circle.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "CCTP + Celer (Fast)"
+      ]
+    },
+    "centrifuge": {
+      "name": "Centrifuge",
+      "path": "/logos/75c06d84578ce43c7991.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/centrifuge.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Centrifuge"
+      ]
+    },
+    "chainflip": {
+      "name": "Chainflip",
+      "path": "/logos/3a0e2b88a36e9770c3f0.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/chainflip.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Chainflip"
+      ]
+    },
+    "chainlink": {
+      "name": "chainlink",
+      "path": "/logos/88ebc5b4902e538e2351.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/chainlink.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "circle": {
+      "name": "circle",
+      "path": "/logos/402540eeb47b316bed0a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/circle.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "debridge": {
+      "name": "deBridge",
+      "path": "/logos/5bbe9e5c86bde049dcd5.svg",
+      "source": "https://debridge.com/assets/img/logo/avatar-yellow.svg",
+      "sourcePage": "https://debridge.com/brand/",
+      "aliases": [
+        "deBridge DLN",
+        "DLN"
+      ]
+    },
+    "eco": {
+      "name": "Eco",
+      "path": "/logos/84a0aa80aef13116f3d4.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/eco.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Eco"
+      ]
+    },
+    "frax": {
+      "name": "Frax Bridge",
+      "path": "/logos/c4ce8b0cf73e4071b9b8.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/frax.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Frax Bridge"
+      ]
+    },
+    "garden": {
+      "name": "Garden",
+      "path": "/logos/e82a4f4b1eb87b622727.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/garden.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Garden"
+      ]
+    },
+    "gaszip": {
+      "name": "gaszip",
+      "path": "/logos/84d41aa3b549d48dc071.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/gaszip.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "gasZipBridge": {
+      "name": "GasZip",
+      "path": "/logos/84d41aa3b549d48dc071.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/gaszip.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "GasZip"
+      ]
+    },
+    "glacis": {
+      "name": "Glacis",
+      "path": "/logos/9dbf2b5a8c6348c33e4e.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/glacis.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Glacis"
+      ]
+    },
+    "gnosis": {
+      "name": "Gnosis Bridge",
+      "path": "/logos/dfdde637dc73a7571a6a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/gnosis.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Gnosis Bridge"
+      ]
+    },
+    "hyperliquidNative": {
+      "name": "Hyperliquid Native",
+      "path": "/logos/d84ac225e8466abf0c0e.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/hyperliquid.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Hyperliquid Native"
+      ]
+    },
+    "hyperliquidSA": {
+      "name": "Hyperliquid",
+      "path": "/logos/d84ac225e8466abf0c0e.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/hyperliquid.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Hyperliquid"
+      ]
+    },
+    "layerswap": {
+      "name": "Layerswap",
+      "path": "/logos/928ea374f6548514e7c3.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/layerswap.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Layerswap"
+      ]
+    },
+    "layerzero": {
+      "name": "LayerZero",
+      "path": "/logos/8595ff62deaea86c8d76.png",
+      "source": "https://layerzero.network/images/logo-layerzero.png",
+      "sourcePage": "https://layerzero.network",
+      "aliases": [
+        "LayerZero application"
+      ]
+    },
+    "lifi": {
+      "name": "lifi",
+      "path": "/logos/11fd39eba94bd4534c53.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/lifi.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": [
+        "LI.FI",
+        "LI.FI route",
+        "LI.FI 생태계"
+      ]
+    },
+    "lifiIntents": {
+      "name": "LI.FI Intents",
+      "path": "/logos/11fd39eba94bd4534c53.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/lifi.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "LI.FI Intents"
+      ]
+    },
+    "m0": {
+      "name": "m0",
+      "path": "/logos/da01fb1a9e9ffd28490d.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/m0.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "mayan": {
+      "name": "Mayan (Swift)",
+      "path": "/logos/14a2a78b5df3a546d90a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/mayan.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Mayan (Swift)"
+      ]
+    },
+    "mayanFastMCTP": {
+      "name": "CCTPv2 + Mayan",
+      "path": "/logos/14a2a78b5df3a546d90a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/mayan.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "CCTPv2 + Mayan"
+      ]
+    },
+    "mayanMCTP": {
+      "name": "CCTP + Mayan",
+      "path": "/logos/14a2a78b5df3a546d90a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/mayan.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "CCTP + Mayan"
+      ]
+    },
+    "mayanWH": {
+      "name": "Mayan (Wormhole)",
+      "path": "/logos/14a2a78b5df3a546d90a.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/mayan.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Mayan (Wormhole)"
+      ]
+    },
+    "megaeth": {
+      "name": "MegaETH Gateway",
+      "path": "/logos/702fa89c35f998fa86bd.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/megaeth.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "MegaETH Gateway"
+      ]
+    },
+    "naos": {
+      "name": "naos",
+      "path": "/logos/66202a53acd8ff12a388.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/naos.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "near": {
+      "name": "NearIntents",
+      "path": "/logos/9d2ff518ba661d2193bb.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/near.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "NearIntents"
+      ]
+    },
+    "omni": {
+      "name": "Omni Bridge",
+      "path": "/logos/14198cae476eb7864367.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/omni.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Omni Bridge"
+      ]
+    },
+    "optimism": {
+      "name": "optimism",
+      "path": "/logos/e75d079d4876dd1b900b.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/optimism.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": [
+        "L2 Official · OP Stack"
+      ]
+    },
+    "paxos": {
+      "name": "Paxos Labs Transit",
+      "path": "/logos/ce394aeb86f48d6c861e.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/paxos.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Paxos Labs Transit"
+      ]
+    },
+    "pioneer": {
+      "name": "pioneer",
+      "path": "/logos/53a91b8ce2dc228d8f82.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/pioneer.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "polygon": {
+      "name": "Polygon Bridge (PoS)",
+      "path": "/logos/59460ed65588b9524d09.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/polygon.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Polygon Bridge (PoS)"
+      ]
+    },
+    "polymer": {
+      "name": "Polymer (Fast)",
+      "path": "/logos/e6580f21bbd829210523.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/polymer.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Polymer (Fast)"
+      ]
+    },
+    "polymerStandard": {
+      "name": "Polymer (Standard)",
+      "path": "/logos/e6580f21bbd829210523.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/polymer.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Polymer (Standard)"
+      ]
+    },
+    "portal": {
+      "name": "Portal",
+      "path": "/logos/84fc86f2d51d3b9ea370.svg",
+      "source": "https://static.wormhole.com/portal_logomark_black.svg",
+      "sourcePage": "https://wormhole.com/brand-and-press",
+      "aliases": [
+        "Portal / Wormhole",
+        "Portal Bridge"
+      ]
+    },
+    "relay": {
+      "name": "relay",
+      "path": "/logos/c1b6235e18bb78fc6f08.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/relay.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "relaydepository": {
+      "name": "Relay",
+      "path": "/logos/c1b6235e18bb78fc6f08.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/relay.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Relay"
+      ]
+    },
+    "rhino": {
+      "name": "rhino.fi",
+      "path": "/logos/914e44fa34af01558a9a.png",
+      "source": "https://framerusercontent.com/images/DeMxiKOVdNxCUXD2bNcefpsGw8o.png",
+      "sourcePage": "https://rhino.fi",
+      "aliases": [
+        "rhino.fi"
+      ]
+    },
+    "smartDeposits": {
+      "name": "Smart Deposits",
+      "path": "/logos/11fd39eba94bd4534c53.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/lifi.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Smart Deposits"
+      ]
+    },
+    "squid": {
+      "name": "Squid",
+      "path": "/logos/1f15fe1b4dc88f484f3c.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/squid.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Squid"
+      ]
+    },
+    "stargate": {
+      "name": "stargate",
+      "path": "/logos/fceed76f8336bfe20556.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/stargate.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": [
+        "Stargate · LayerZero"
+      ]
+    },
+    "stargateV2": {
+      "name": "StargateV2 (Fast mode)",
+      "path": "/logos/fceed76f8336bfe20556.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/stargate.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "StargateV2 (Fast mode)"
+      ]
+    },
+    "stargateV2Bus": {
+      "name": "StargateV2 (Economy mode)",
+      "path": "/logos/fceed76f8336bfe20556.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/stargate.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "StargateV2 (Economy mode)"
+      ]
+    },
+    "superset": {
+      "name": "Superset",
+      "path": "/logos/b8dabaf27f65b64a42d8.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/superset.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Superset"
+      ]
+    },
+    "swapkit": {
+      "name": "swapkit",
+      "path": "/logos/c95de4810a0f76d76f61.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/swapkit.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "symbiosis": {
+      "name": "Symbiosis",
+      "path": "/logos/f77df134227a9f1179fd.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/symbiosis.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Symbiosis"
+      ]
+    },
+    "thorchain": {
+      "name": "THORChain",
+      "path": "/logos/ce3f053d81dcf1417909.png",
+      "source": "https://cdn.sanity.io/images/355nlzcp/production/c973725813bf6fcd1c3a0a37adf3252677529ace-512x512.png",
+      "sourcePage": "https://thorchain.org/brand-assets",
+      "aliases": []
+    },
+    "thorswap": {
+      "name": "thorswap",
+      "path": "/logos/bee67304f44b9b946fba.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/thorswap.svg",
+      "sourcePage": "https://github.com/lifinance/types/tree/main/src/assets/icons/bridges",
+      "aliases": []
+    },
+    "unit": {
+      "name": "Unit",
+      "path": "/logos/902904c2e77395b11c8f.svg",
+      "source": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/unit.svg",
+      "sourcePage": "https://li.quest/v1/tools",
+      "aliases": [
+        "Unit"
+      ]
+    },
+    "wormhole": {
+      "name": "Wormhole",
+      "path": "/logos/1b695ca0495792d1e4ad.svg",
+      "source": "https://static.wormhole.com/logomark-black.svg",
+      "sourcePage": "https://wormhole.com/brand-and-press",
+      "aliases": [
+        "Wormhole · Portal"
+      ]
+    }
+  }
+}

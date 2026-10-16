@@ -1,0 +1,32 @@
+<!doctype html>
+<!--
+  Tx Tracer | Contact: c4lvin
+  X: https://x.com/c4lvin
+  Telegram: https://t.me/siwonhuh
+  Research: https://research.4pillars.io/en/researchers/c4lvin
+-->
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="theme-color" content="#fcfcfd" />
+    <script>
+      (() => {
+        let theme;
+        try { theme = localStorage.getItem("tx-tracer-theme"); } catch {}
+        if (theme !== "light" && theme !== "dark") theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#111214" : "#fcfcfd";
+      })();
+    </script>
+    <meta name="description" content="Tx Tracer에서 트랜잭션과 주소를 검색하고 송금과 브릿지의 연결 경로를 확인하세요." />
+    <title>Tx Tracer | 자금 이동 경로 추적</title>
+    <link rel="icon" type="image/jpeg" href="/tx-tracer-logo.jpg" />
+    <link rel="apple-touch-icon" href="/tx-tracer-logo.jpg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
